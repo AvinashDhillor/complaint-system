@@ -1,0 +1,43 @@
+{
+  "name": "complaint-system",
+  "version": "1.0.0",
+  "description": "It is complaint system for any organization or inistitute.",
+  "main": "index.js",
+  "scripts": {
+    "client": "npm start --prefix client",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "dev": "concurrently \"npm run server\" \"npm run client\" ",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AvinashDhillor/complaint-system.git"
+  },
+  "keywords": [
+    "complaint",
+    "system",
+    "mern",
+    "project",
+    "dashboard"
+  ],
+  "author": "Avinash Dhillor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AvinashDhillor/complaint-system/issues"
+  },
+  "homepage": "https://github.com/AvinashDhillor/complaint-system#readme",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.0.0",
+    "express": "^4.17.1",
+    "jsonwebtoken": "^8.5.1",
+    "lodash": "^4.17.15",
+    "mongoose": "^5.6.5"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.1",
+    "nodemon": "^1.19.1"
+  }
+}
