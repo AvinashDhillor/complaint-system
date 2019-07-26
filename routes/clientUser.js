@@ -10,6 +10,7 @@ app.post('/users/signup', (req, res) => {
     'email',
     'password',
     'address',
+    'role',
     'contactNumber'
   ]);
   let user = new User(body);
@@ -32,12 +33,10 @@ app.get('/users/me', authenticate, (req, res) => {
 
 app.post('/users/login', (req, res) => {
   var body = _.pick(req.body, ['email', 'password']);
-  console.log(body);
-
   User.findByCredentials(body.email, body.password)
     .then(user => {
       return user.generateAuthToken('auth').then(token => {
-        res.header('cu-auth', token).send(user);
+        res.header('cu-auth', token).send({ user, token });
       });
     })
     .catch(e => {

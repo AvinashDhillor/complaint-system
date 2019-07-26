@@ -30,6 +30,10 @@ const UserSchema = new Schema(
       type: String,
       required: true
     },
+    role: {
+      type: String,
+      require: true
+    },
     isVerified: {
       type: Boolean,
       default: false
@@ -63,7 +67,13 @@ const UserSchema = new Schema(
 UserSchema.methods.toJSON = function() {
   let user = this;
   let userObject = user.toObject();
-  return _.pick(userObject, ['name', 'email', 'contactNumber', 'address']);
+  return _.pick(userObject, [
+    'name',
+    'email',
+    'contactNumber',
+    'address',
+    'role'
+  ]);
 };
 
 UserSchema.pre('save', function(next) {

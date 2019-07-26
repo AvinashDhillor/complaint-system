@@ -2,55 +2,84 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 export default class LoginForm extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      email: '',
+      password: ''
+    };
+  }
+
+  onLogin = e => {
+    e.preventDefault();
+    this.props.grabLoginData(this.state);
+  };
+
+  onChangeEmail = e => {
+    let data = e.target.value;
+    this.setState({
+      email: data
+    });
+  };
+
+  onChangePassword = e => {
+    let data = e.target.value;
+    this.setState({
+      password: data
+    });
+  };
+
   render() {
     return (
       <div className="card border-info mb-3">
         <div className="card-header bg-info text-white">
-          <i class="fas fa-sign-in-alt mr-2" />
+          <i className="fas fa-sign-in-alt mr-2" />
           Login into account
         </div>
         <div className="card-body">
-          <form>
-            <div class="form-group">
-              <label for="email">Email</label>
+          <form onSubmit={this.onLogin}>
+            <div className="form-group">
+              <label htmlFor="email">Email</label>
               <input
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="email"
                 placeholder="ram@example.com"
+                onChange={this.onChangeEmail}
               />
             </div>
-            <div class="form-group">
-              <label for="password">Password</label>
+            <div className="form-group">
+              <label htmlFor="password">Password</label>
               <input
                 type="password"
-                class="form-control"
+                className="form-control"
                 id="password"
                 placeholder="Password"
+                onChange={this.onChangePassword}
               />
             </div>
-            <div class="btn-group">
+            <div className="btn-group">
               <button
-                class="btn text-info"
+                className="btn text-info"
                 type="button"
                 data-toggle="dropdown"
               >
-                <i class="fas fa-user-plus mr-2" />
+                <i className="fas fa-user-plus mr-2" />
                 Create Account
               </button>
-              <div class="dropdown-menu">
+              <div className="dropdown-menu">
                 <Link to="/c/signup" className="dropdown-item">
-                  <i class="fas fa-user mr-2" />
+                  <i className="fas fa-user mr-2" />
                   Normal user account
                 </Link>
 
                 <Link to="/d/signup" className="dropdown-item">
-                  <i class="fas fa-user-tie mr-1" /> Department user account
+                  <i className="fas fa-user-tie mr-1" /> Department user account
                 </Link>
               </div>
             </div>
-            <button type="submit" class="btn btn-info float-right">
-              <i class="fas fa-lock mr-2" />
+            <button type="submit" className="btn btn-info float-right">
+              <i className="fas fa-lock mr-2" />
               Login
             </button>
           </form>
