@@ -5,7 +5,7 @@ import setAuthToken from '../utils/setAuthToken';
 export const clientLogin = data => dispatch => {
   dispatch(setLoading(true));
   axios
-    .post('/client/users/login', data)
+    .post('/c/users/login', data)
     .then(res => {
       const { token, user } = res.data;
       localStorage.setItem('jwtToken', token);
@@ -23,7 +23,7 @@ export const clientLogin = data => dispatch => {
 
 export const getProfile = cb => {
   axios
-    .get('/client/users/me')
+    .get('/c/users/me')
     .then(res => {
       cb({
         type: GET_PROFILE,
@@ -38,7 +38,7 @@ export const getProfile = cb => {
 export const userRegister = data => dispatch => {
   dispatch(setLoading(true));
   axios
-    .post('/client/users/signup', data)
+    .post('/c/users/signup', data)
     .then(res => {
       if (res.data) {
         console.log(res.data);

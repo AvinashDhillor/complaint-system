@@ -30,6 +30,10 @@ const UserSchema = new Schema(
       type: String,
       required: true
     },
+    departmentId: {
+      type: Schema.Types.ObjectId,
+      ref: 'Department'
+    },
     role: {
       type: String,
       require: true
@@ -67,6 +71,16 @@ const UserSchema = new Schema(
 UserSchema.methods.toJSON = function() {
   let user = this;
   let userObject = user.toObject();
+  if (userObject.role === 'department') {
+    return _.pick(userObject, [
+      'name',
+      'email',
+      'contactNumber',
+      'address',
+      'departmentId',
+      'role'
+    ]);
+  }
   return _.pick(userObject, [
     'name',
     'email',

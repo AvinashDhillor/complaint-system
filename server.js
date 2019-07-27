@@ -2,15 +2,25 @@ const dotenv = require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 
-//@user defined
+//@ User defined
 const mongoose = require('./db/connect');
+
+//@ Routes
 const clientUser = require('./routes/clientUser');
+const departmentUser = require('./routes/departmentUser');
+const complaint = require('./routes/complaint');
+const department = require('./routes/department');
+const resolved = require('./routes/resolved');
 
 const app = express();
 
 //@middlewares
 app.use(bodyParser.json());
-app.use('/client', clientUser);
+app.use('/c', clientUser);
+app.use('/department', department);
+app.use('/d', departmentUser);
+app.use('/complaint', complaint);
+app.use('/resolved', resolved);
 
 const PORT = process.env.PORT || 5000;
 

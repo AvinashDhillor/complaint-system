@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { userRegister } from '../../actions/clientUserActions';
+import { duserRegister } from '../../actions/departmentUserActions';
+import { getDepartments } from '../../actions/departmentUserActions';
 
 export class RegistrationForm extends Component {
   constructor(props) {
@@ -11,15 +12,21 @@ export class RegistrationForm extends Component {
       email: '',
       password: '',
       role: 'department',
+      department: '',
       address: '',
       number: '',
-      isLoading: false
+      isLoading: false,
+      departments: [{ name: '' }]
     };
+  }
+  componentWillMount() {
+    this.props.getDepartments();
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
-      isLoading: nextProps.isLoading
+      isLoading: nextProps.isLoading,
+      departments: nextProps.departments
     });
   }
 
@@ -30,12 +37,13 @@ export class RegistrationForm extends Component {
       email: this.state.email,
       password: this.state.password,
       role: this.state.role,
+      department: this.state.department,
       address: this.state.address,
       number: this.state.number
     };
     console.log(data);
 
-    this.props.userRegister(data);
+    this.props.duserRegister(data);
   };
 
   onNameChange = e => {
@@ -54,6 +62,12 @@ export class RegistrationForm extends Component {
     let data = e.target.value;
     this.setState({
       password: data
+    });
+  };
+  onDepartmentChange = e => {
+    let data = e.target.value;
+    this.setState({
+      department: data
     });
   };
   onAddressChange = e => {
@@ -127,6 +141,22 @@ export class RegistrationForm extends Component {
                     </div>
 
                     <div className="form-group">
+                      <label htmlFor="department">Select Department</label>
+                      <select
+                        className="form-control"
+                        id="department"
+                        onChange={this.onDepartmentChange}
+                      >
+                        <option selected disabled>
+                          Select Your Department
+                        </option>
+                        {this.state.departments.map((val, i) => {
+                          return <option key={i}>{val.name}</option>;
+                        })}
+                      </select>
+                    </div>
+
+                    <div className="form-group">
                       <label htmlFor="number">Contact Number</label>
                       <div className="input-group">
                         <div className="input-group-prepend">
@@ -190,10 +220,11 @@ export class RegistrationForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.loadingStatus.loading
+  isLoading: state.loadingStatus.loading,
+  departments: state.departments
 });
 
 export default connect(
   mapStateToProps,
-  { userRegister }
+  { duserRegister, getDepartments }
 )(RegistrationForm);
