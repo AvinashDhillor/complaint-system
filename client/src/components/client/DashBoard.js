@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import LoginForm from '../common/LoginForm';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 
 import { clientLogin } from '../../actions/clientUserActions';
 
@@ -11,6 +10,24 @@ class DashBoard extends Component {
     this.state = {
       redirect: false
     };
+  }
+
+  componentDidMount() {
+    if (this.props.isAuth) {
+      if (this.props.role === 'department') this.props.history.push('/d/panel');
+      else {
+        this.props.history.push('/c/panel');
+      }
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.isAuth) {
+      if (nextProps.role === 'department') this.props.history.push('/d/panel');
+      else {
+        this.props.history.push('/c/panel');
+      }
+    }
   }
 
   grabLoginData = data => {
@@ -32,7 +49,10 @@ class DashBoard extends Component {
           </div>
           <div className="row justify-content-center">
             <div className="col-lg-6">
-              <LoginForm grabLoginData={this.grabLoginData} />
+              <LoginForm
+                grabLoginData={this.grabLoginData}
+                setLoading={this.props.isLoading}
+              />
             </div>
           </div>
         </div>
@@ -42,8 +62,11 @@ class DashBoard extends Component {
 }
 
 const mapStateToProps = state => {
-  console.log(state.client);
-  return { state };
+  return {
+    isAuth: state.client.isAuth,
+    role: state.client.user.role,
+    isLoading: state.loadingStatus.loading
+  };
 };
 
 export default connect(

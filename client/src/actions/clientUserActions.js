@@ -3,16 +3,18 @@ import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 
 export const clientLogin = data => dispatch => {
+  dispatch(setLoading(true));
   axios
     .post('/client/users/login', data)
     .then(res => {
       const { token, user } = res.data;
       localStorage.setItem('jwtToken', token);
       setAuthToken(token);
-      return dispatch({
+      dispatch({
         type: LOGIN,
         payload: user
       });
+      dispatch(setLoading());
     })
     .catch(err => {
       console.log(err);
@@ -23,31 +25,42 @@ export const getProfile = cb => {
   axios
     .get('/client/users/me')
     .then(res => {
-      let dat = {
+      cb({
         type: GET_PROFILE,
         payload: res.data
-      };
-      cb(dat);
+      });
     })
     .catch(err => {
       console.log(err);
     });
 };
 
-export const dUserRegister = data => dispatch => {};
-
-export const cUserRegister = data => dispatch => {};
+export const userRegister = data => dispatch => {
+  dispatch(setLoading(true));
+  axios
+    .post('/client/users/signup', data)
+    .then(res => {
+      if (res.data) {
+        console.log(res.data);
+      }
+    })
+    .catch(err => {
+      dispatch(setLoading());
+      console.log(err);
+    });
+  dispatch(setLoading());
+};
 
 export const clientLogout = () => dispatch => {};
 
-export const setLoading = (isLoading = false) => dispatch => {
+export const setLoading = (isLoading = false) => {
   if (isLoading) {
-    return dispatch({
+    return {
       type: 'SET_LOADING'
-    });
+    };
   } else {
-    return dispatch({
+    return {
       type: 'UNSET_LOADING'
-    });
+    };
   }
 };

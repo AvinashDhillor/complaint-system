@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { Route, Redirect } from 'react-router-dom';
 
 export const PublicRouter = ({
@@ -13,7 +12,15 @@ export const PublicRouter = ({
     {...rest}
     component={props =>
       isAuthenticated ? (
-        <Redirect to="/d/panel" />
+        role === 'department' ? (
+          <Redirect to="/d/panel" />
+        ) : role === 'client' ? (
+          <Redirect to="/c/panel" />
+        ) : (
+          <div>
+            <Component {...props} />
+          </div>
+        )
       ) : (
         <div>
           <Component {...props} />

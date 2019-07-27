@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import _ from 'lodash';
 import { Route, Redirect } from 'react-router-dom';
 
 export const PrivateRouter = ({
@@ -17,15 +16,13 @@ export const PrivateRouter = ({
           <Component {...props} />
         </div>
       ) : (
-        <Redirect to="/error" />
+        <Redirect to="/" />
       )
     }
   />
 );
 
 const mapStateToProps = state => {
-  console.log(state.client.isAuth);
-
   return {
     isAuthenticated: state.client.isAuth
   };

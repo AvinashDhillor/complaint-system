@@ -78,10 +78,25 @@ export default class LoginForm extends Component {
                 </Link>
               </div>
             </div>
-            <button type="submit" className="btn btn-info float-right">
-              <i className="fas fa-lock mr-2" />
-              Login
-            </button>
+            {this.props.setLoading ? (
+              <button
+                className="btn btn-info float-right"
+                type="button"
+                disabled
+              >
+                <span
+                  className="spinner-border spinner-border-sm mr-1"
+                  role="status"
+                  aria-hidden="true"
+                />
+                Loading...
+              </button>
+            ) : (
+              <button type="submit" className="btn btn-info float-right">
+                <i className="fas fa-lock mr-2" />
+                Login
+              </button>
+            )}
           </form>
         </div>
       </div>
