@@ -52,7 +52,11 @@ app.get('/pending', authenticate, (req, res) => {
         console.log(err);
       });
   } else if (req.user.role === 'client') {
-    Complaint.find({ isPending: true, createdBy: req.user._id })
+    Complaint.find({
+      isResolved: false,
+      isRejected: false,
+      createdBy: req.user._id
+    })
       .populate('departmentId')
       .then(data => {
         res.send(data);

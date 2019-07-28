@@ -13,7 +13,7 @@ export const PublicRouter = ({
     component={props =>
       isAuthenticated ? (
         role === 'department' ? (
-          <Redirect to="/d/panel/allcomplaints" />
+          <Redirect to="/d/panel/allresolved" />
         ) : role === 'client' ? (
           <Redirect to="/c/panel/complaint" />
         ) : (

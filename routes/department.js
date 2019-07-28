@@ -18,6 +18,7 @@ app.post('/new', (req, res) => {
 
 app.get('/', (req, res) => {
   Department.find({}, { name: 1, _id: 0 })
+    .sort({ name: 1 })
     .then(data => {
       return res.send(data);
     })

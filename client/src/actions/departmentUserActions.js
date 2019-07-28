@@ -1,4 +1,9 @@
-import { GET_DEPARTMENTS, CREATE_D_USER } from './types';
+import {
+  GET_DEPARTMENTS,
+  CREATE_D_USER,
+  LOAD_RESOLVED,
+  LOAD_ALL_RESOLVED
+} from './types';
 import axios from 'axios';
 
 export const getDepartments = () => dispatch => {
@@ -31,6 +36,33 @@ export const duserRegister = data => dispatch => {
   dispatch(setLoading());
 };
 
+export const dloadResolved = () => dispatch => {
+  axios
+    .get('/d/resolved')
+    .then(res => {
+      dispatch({
+        type: LOAD_RESOLVED,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+export const dallloadResolved = () => dispatch => {
+  axios
+    .get('/d/resolved/all')
+    .then(res => {
+      dispatch({
+        type: LOAD_ALL_RESOLVED,
+        payload: res.data
+      });
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
 export const setLoading = (isLoading = false) => {
   if (isLoading) {
     return {
@@ -41,4 +73,13 @@ export const setLoading = (isLoading = false) => {
       type: 'UNSET_LOADING'
     };
   }
+};
+
+export const resolveComplaint = data => dispatch => {
+  axios
+    .post('/d/resolve', data)
+    .then(res => {
+      console.log(res.data);
+    })
+    .catch(err => console.log(err));
 };

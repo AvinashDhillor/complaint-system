@@ -7,6 +7,10 @@ import {
   loadResolved,
   clientLogout
 } from '../../actions/clientUserActions';
+import {
+  dloadResolved,
+  dallloadResolved
+} from '../../actions/departmentUserActions';
 import './css/main.css';
 
 export class Panel extends Component {
@@ -21,6 +25,8 @@ export class Panel extends Component {
     this.props.loadPending();
     this.props.loadRejected();
     this.props.loadResolved();
+    this.props.dallloadResolved();
+    this.props.dloadResolved();
   }
 
   componentWillReceiveProps(nextProps) {
@@ -101,14 +107,19 @@ export class Panel extends Component {
               <div className="list-group ">
                 <Link
                   className="list-group-item bg-dark text-info list-group-item-action"
-                  to="#list-item-1"
+                  to="allresolved"
                 >
                   <i className="fas fa-envelope-open-text mr-2" />
-                  All Complaints
+                  All Resolved
+                  <span className="badge badge-light ml-3">
+                    {this.props.allresolved.length === 0
+                      ? ''
+                      : this.props.allresolved.length}
+                  </span>
                 </Link>
                 <Link
                   className="list-group-item list-group-item-action bg-dark text-info"
-                  to="#list-item-2"
+                  to="/d/panel/resolved"
                 >
                   <i className="fas fa-check-double mr-2" />
                   Resolved
@@ -120,7 +131,7 @@ export class Panel extends Component {
                 </Link>
                 <Link
                   className="list-group-item list-group-item-action bg-dark text-info"
-                  to="#list-item-4"
+                  to="/d/panel/pending"
                 >
                   <i className="fab fa-font-awesome-flag mr-2" />
                   Pending
@@ -156,11 +167,19 @@ const mapStateToProps = state => {
     isAuth: state.client.isAuth,
     pending: state.pending,
     resolved: state.resolved,
+    allresolved: state.allresolved,
     rejected: state.rejected
   };
 };
 
 export default connect(
   mapStateToProps,
-  { loadPending, loadRejected, loadResolved, clientLogout }
+  {
+    loadPending,
+    loadRejected,
+    loadResolved,
+    clientLogout,
+    dloadResolved,
+    dallloadResolved
+  }
 )(Panel);

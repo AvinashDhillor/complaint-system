@@ -15,7 +15,7 @@ class DashBoard extends Component {
   componentDidMount() {
     if (this.props.isAuth) {
       if (this.props.role === 'department')
-        this.props.history.push('/d/panel/allcomplaints');
+        this.props.history.push('/d/panel/allresolved');
       else {
         this.props.history.push('/c/panel/complaint');
       }
@@ -25,7 +25,7 @@ class DashBoard extends Component {
   componentWillReceiveProps(nextProps) {
     if (nextProps.isAuth) {
       if (nextProps.role === 'department')
-        this.props.history.push('/d/panel/allcomplaints');
+        this.props.history.push('/d/panel/allresolved');
       else {
         this.props.history.push('/c/panel/complaint');
       }

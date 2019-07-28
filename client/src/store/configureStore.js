@@ -8,6 +8,7 @@ import departmentReducer from '../reducers/departmentReducer';
 import pendingReducer from '../reducers/pendingReducer';
 import resolvedReducer from '../reducers/resolvedReducer';
 import rejectedReducer from '../reducers/rejectedReducer';
+import allResolvedReducer from '../reducers/allResolvedReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -19,7 +20,8 @@ export default () => {
       departments: departmentReducer,
       pending: pendingReducer,
       resolved: resolvedReducer,
-      rejected: rejectedReducer
+      rejected: rejectedReducer,
+      allresolved: allResolvedReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

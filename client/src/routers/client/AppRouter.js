@@ -9,9 +9,11 @@ import Header from '../../components/common/Header';
 import NotFound from '../../components/common/NotFound';
 import Footer from '../../components/common/Footer';
 import CreateComplaint from '../../components/client/CreateComplaint';
-import Pending from '../../components/client/Pending';
+import CPending from '../../components/client/Pending';
+import DPending from '../../components/department/Pending';
+import DResolved from '../../components/department/Resolved';
 import Rejected from '../../components/client/Rejected';
-import AllComplaints from '../../components/department/AllComplaints';
+import AllResolved from '../../components/department/AllResolved';
 import PrivateRouter from './PrivateRouter';
 import PublicRouter from './PublicRouter';
 
@@ -22,14 +24,8 @@ const AppRouter = () => {
         <Header />
         <Switch>
           <PublicRouter exact={true} path="/" component={DashBoard} />
-          <PrivateRouter
-            path="/d/panel/allcomplaints"
-            component={AllComplaints}
-          />
-          {/* <PrivateRouter
-            path="/c/panel/complaint"
-            component={CreateComplaint}
-          /> */}
+          <PrivateRouter path="/d/panel/allresolved" component={AllResolved} />
+          <PrivateRouter path="/d/panel/pending" component={DPending} exact />
           <PrivateRouter
             path="/c/panel/complaint"
             component={CreateComplaint}
@@ -37,7 +33,12 @@ const AppRouter = () => {
           />
           <PrivateRouter
             path="/c/panel/complaint/pending"
-            component={Pending}
+            component={CPending}
+            exact={true}
+          />
+          <PrivateRouter
+            path="/d/panel/resolved"
+            component={DResolved}
             exact={true}
           />
           <PrivateRouter
