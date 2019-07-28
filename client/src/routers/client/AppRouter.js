@@ -17,6 +17,12 @@ import Rejected from '../../components/client/Rejected';
 import AllResolved from '../../components/department/AllResolved';
 import PrivateRouter from './PrivateRouter';
 import PublicRouter from './PublicRouter';
+import Departments from '../../components/admin/Departments';
+import Members from '../../components/admin/Members';
+import Users from '../../components/admin/Users';
+import ShowAdmins from '../../components/admin/ShowAdmins';
+import AdminRegister from '../../components/admin/AdminRegister';
+import Complaints from '../../components/admin/Complaints';
 
 const AppRouter = () => {
   return (
@@ -25,10 +31,43 @@ const AppRouter = () => {
         <Header />
         <Switch>
           <PublicRouter exact={true} path="/" component={DashBoard} />
+
+          {/*Admin */}
+          <PrivateRouter
+            path="/a/panel/departments"
+            component={Departments}
+            exact
+          />
+          <PrivateRouter path="/a/panel/members" component={Members} exact />
+          <PrivateRouter path="/a/panel/users" component={Users} exact />
+          <PrivateRouter
+            path="/a/panel/show/admins"
+            component={ShowAdmins}
+            exact
+          />
+          <PrivateRouter
+            path="/a/panel/register"
+            component={AdminRegister}
+            exact
+          />
+          <PrivateRouter
+            path="/a/panel/complaints"
+            component={Complaints}
+            exact
+          />
+
+          {/* Department */}
           <PrivateRouter path="/d/panel/allresolved" component={AllResolved} />
           <PrivateRouter path="/d/panel/pending" component={DPending} exact />
-          <PrivateRouter path="/c/panel/resolved" component={CResolved} exact />
+          <PublicRouter path="/d/signup" component={DepartmentRegister} />
+          <PrivateRouter
+            path="/d/panel/resolved"
+            component={DResolved}
+            exact={true}
+          />
 
+          {/* Client */}
+          <PublicRouter path="/c/signup" component={ClientRegister} />
           <PrivateRouter
             path="/c/panel/complaint"
             component={CreateComplaint}
@@ -40,17 +79,11 @@ const AppRouter = () => {
             exact={true}
           />
           <PrivateRouter
-            path="/d/panel/resolved"
-            component={DResolved}
-            exact={true}
-          />
-          <PrivateRouter
             path="/c/panel/complaint/rejected"
             component={Rejected}
             exact={true}
           />
-          <PublicRouter path="/d/signup" component={DepartmentRegister} />
-          <PublicRouter path="/c/signup" component={ClientRegister} />
+          <PrivateRouter path="/c/panel/resolved" component={CResolved} exact />
           <Route component={NotFound} />
         </Switch>
         {/* <Footer /> */}

@@ -11,6 +11,7 @@ const departmentUser = require('./routes/departmentUser');
 const complaint = require('./routes/complaint');
 const department = require('./routes/department');
 const resolved = require('./routes/resolved');
+const admin = require('./routes/admin');
 
 const app = express();
 
@@ -21,6 +22,7 @@ app.use('/department', department);
 app.use('/d', departmentUser);
 app.use('/complaint', complaint);
 app.use('/resolved', resolved);
+app.use('/admin', admin);
 
 const PORT = process.env.PORT || 5000;
 

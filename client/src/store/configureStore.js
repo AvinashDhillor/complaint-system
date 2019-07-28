@@ -9,6 +9,11 @@ import pendingReducer from '../reducers/pendingReducer';
 import resolvedReducer from '../reducers/resolvedReducer';
 import rejectedReducer from '../reducers/rejectedReducer';
 import allResolvedReducer from '../reducers/allResolvedReducer';
+import ud from '../reducers/udUserReducer';
+import uc from '../reducers/ucUserReducer';
+import vd from '../reducers/vdUserReducer';
+import vc from '../reducers/vcUserReducer';
+import ad from '../reducers/adminUserReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -21,7 +26,12 @@ export default () => {
       pending: pendingReducer,
       resolved: resolvedReducer,
       rejected: rejectedReducer,
-      allresolved: allResolvedReducer
+      allresolved: allResolvedReducer,
+      uc: uc,
+      vd: vd,
+      vc: vc,
+      ud: ud,
+      ad: ad
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

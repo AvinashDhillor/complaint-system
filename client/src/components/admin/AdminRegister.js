@@ -1,16 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { userRegister } from '../../actions/clientUserActions';
+import { registerAdmin } from '../../actions/adminActions';
 
-export class RegistrationForm extends Component {
+export class AdminRegister extends Component {
   constructor(props) {
     super(props);
     this.state = {
       name: '',
       email: '',
       password: '',
-      role: 'client',
+      role: 'admin',
       address: '',
       number: '',
       isLoading: false
@@ -34,7 +34,7 @@ export class RegistrationForm extends Component {
       contactNumber: this.state.number
     };
 
-    this.props.userRegister(data);
+    this.props.registerAdmin(data);
   };
 
   onNameChange = e => {
@@ -71,13 +71,13 @@ export class RegistrationForm extends Component {
   render() {
     return (
       <>
-        <div className="container my-5">
-          <div className="row justify-content-center">
-            <div className="col-lg-6">
+        <div style={{ marginLeft: '230px' }}>
+          <div className="d-flex justify-content-center">
+            <div className="col-6 my-4">
               <div className="card border-info mb-3">
                 <div className="card-header bg-info text-white">
-                  <i className="fas fa-user-plus mr-2" />
-                  Create new account
+                  <i class="fas fa-user-shield mr-2" />
+                  Create new admin
                 </div>
                 <div className="card-body">
                   <form onSubmit={this.register}>
@@ -194,5 +194,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-  { userRegister }
-)(RegistrationForm);
+  { registerAdmin }
+)(AdminRegister);

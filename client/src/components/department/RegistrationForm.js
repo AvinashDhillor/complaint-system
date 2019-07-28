@@ -39,9 +39,8 @@ export class RegistrationForm extends Component {
       role: this.state.role,
       department: this.state.department,
       address: this.state.address,
-      number: this.state.number
+      contactNumber: this.state.number
     };
-    console.log(data);
 
     this.props.duserRegister(data);
   };

@@ -73,6 +73,7 @@ UserSchema.methods.toJSON = function() {
   let userObject = user.toObject();
   if (userObject.role === 'department') {
     return _.pick(userObject, [
+      '_id',
       'name',
       'email',
       'contactNumber',
@@ -82,6 +83,7 @@ UserSchema.methods.toJSON = function() {
     ]);
   }
   return _.pick(userObject, [
+    '_id',
     'name',
     'email',
     'contactNumber',

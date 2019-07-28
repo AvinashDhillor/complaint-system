@@ -16,8 +16,10 @@ class DashBoard extends Component {
     if (this.props.isAuth) {
       if (this.props.role === 'department')
         this.props.history.push('/d/panel/allresolved');
-      else {
+      else if (this.props.role === 'client') {
         this.props.history.push('/c/panel/complaint');
+      } else if (this.props.role === 'admin') {
+        this.props.history.push('/a/panel/departments');
       }
     }
   }
@@ -26,8 +28,10 @@ class DashBoard extends Component {
     if (nextProps.isAuth) {
       if (nextProps.role === 'department')
         this.props.history.push('/d/panel/allresolved');
-      else {
+      else if (this.props.role === 'client') {
         this.props.history.push('/c/panel/complaint');
+      } else if (this.props.role === 'admin') {
+        this.props.history.push('/a/panel/departments');
       }
     }
   }

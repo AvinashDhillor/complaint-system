@@ -24,6 +24,7 @@ export const loadPending = () => dispatch => {
       console.log(err);
     });
 };
+
 export const loadResolved = () => dispatch => {
   axios
     .get('/complaint/resolved')
@@ -37,6 +38,7 @@ export const loadResolved = () => dispatch => {
       console.log(err);
     });
 };
+
 export const loadRejected = () => dispatch => {
   axios
     .get('/complaint/rejected')

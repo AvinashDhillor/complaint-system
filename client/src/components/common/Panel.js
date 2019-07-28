@@ -9,8 +9,17 @@ import {
 } from '../../actions/clientUserActions';
 import {
   dloadResolved,
-  dallloadResolved
+  dallloadResolved,
+  getDepartments
 } from '../../actions/departmentUserActions';
+import {
+  udUser,
+  vdUser,
+  ucUser,
+  vcUser,
+  loadadmin,
+  loadComplaints
+} from '../../actions/adminActions';
 import './css/main.css';
 
 export class Panel extends Component {
@@ -21,12 +30,31 @@ export class Panel extends Component {
     };
   }
 
-  componentDidMount() {
-    this.props.loadPending();
-    this.props.loadRejected();
-    this.props.loadResolved();
-    this.props.dallloadResolved();
-    this.props.dloadResolved();
+  componentWillMount() {
+    if (this.props.isAuth) {
+      if (this.props.role === 'department') {
+        this.props.dallloadResolved();
+        this.props.dloadResolved();
+        this.props.loadPending();
+      }
+
+      if (this.props.role === 'client') {
+        this.props.loadPending();
+        this.props.loadRejected();
+        this.props.loadResolved();
+        this.props.getDepartments();
+      }
+
+      if (this.props.role === 'admin') {
+        this.props.udUser();
+        this.props.vdUser();
+        this.props.ucUser();
+        this.props.vcUser();
+        this.props.loadadmin();
+        this.props.loadComplaints();
+        this.props.getDepartments();
+      }
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -152,6 +180,88 @@ export class Panel extends Component {
                 <i className="fas fa-sign-out-alt" /> Logout
               </button>{' '}
             </>
+          ) : this.props.role === 'admin' ? (
+            <>
+              <div className="list-group ">
+                <Link
+                  className="list-group-item bg-dark text-info list-group-item-action"
+                  to="/a/panel/departments"
+                >
+                  <i class="fas fa-university mr-2" />
+                  Departments
+                  <span className="badge badge-light ml-3">
+                    {this.props.allresolved.length === 0
+                      ? ''
+                      : this.props.allresolved.length}
+                  </span>
+                </Link>
+                <Link
+                  className="list-group-item list-group-item-action bg-dark text-info"
+                  to="/a/panel/members"
+                >
+                  <i class="fas fa-users mr-2" />
+                  Memebers
+                  <span className="badge badge-light ml-3">
+                    {this.props.ud.length === 0 ? '' : this.props.ud.length}
+                  </span>
+                </Link>
+                <br />
+              </div>
+              <div className="list-group ">
+                <Link
+                  className="list-group-item bg-dark text-info list-group-item-action"
+                  to="/a/panel/users"
+                >
+                  <i class="fas fa-user mr-2" />
+                  Users
+                  <span className="badge badge-light ml-3">
+                    {this.props.uc.length === 0 ? '' : this.props.uc.length}
+                  </span>
+                </Link>
+                <Link
+                  className="list-group-item list-group-item-action bg-dark text-info"
+                  to="/a/panel/complaints"
+                >
+                  <i class="fas fa-archive mr-2" />
+                  Complaints
+                  <span className="badge badge-light ml-3">
+                    {this.props.pending.length === 0
+                      ? ''
+                      : this.props.pending.length}
+                  </span>
+                </Link>
+              </div>
+              <br />
+              <div className="list-group ">
+                <Link
+                  className="list-group-item bg-dark text-info list-group-item-action"
+                  to="/a/panel/show/admins"
+                >
+                  <i class="fas fa-award mr-2" />
+                  Show Admins
+                  <span className="badge badge-light ml-3">
+                    {this.props.allresolved.length === 0
+                      ? ''
+                      : this.props.allresolved.length}
+                  </span>
+                </Link>
+                <Link
+                  className="list-group-item bg-dark text-info list-group-item-action"
+                  to="/a/panel/register"
+                >
+                  <i class="fas fa-user-shield mr-2" />
+                  New Admin
+                </Link>
+              </div>
+              <br />
+              <button
+                type="button"
+                className="btn btn-danger btn-lg"
+                onClick={this.performLogout}
+              >
+                <i className="fas fa-sign-out-alt" /> Logout
+              </button>{' '}
+            </>
           ) : (
             <p>You are not Authenticated</p>
           )}
@@ -168,7 +278,12 @@ const mapStateToProps = state => {
     pending: state.pending,
     resolved: state.resolved,
     allresolved: state.allresolved,
-    rejected: state.rejected
+    rejected: state.rejected,
+    ud: state.ud,
+    vc: state.vc,
+    uc: state.uc,
+    vd: state.vd,
+    ad: state.ad
   };
 };
 
@@ -180,6 +295,13 @@ export default connect(
     loadResolved,
     clientLogout,
     dloadResolved,
-    dallloadResolved
+    dallloadResolved,
+    udUser,
+    vdUser,
+    ucUser,
+    vcUser,
+    loadadmin,
+    loadComplaints,
+    getDepartments
   }
 )(Panel);

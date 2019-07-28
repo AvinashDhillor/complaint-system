@@ -61,7 +61,7 @@ export class CreateComplaint extends Component {
     return (
       <>
         <div style={{ marginLeft: '230px' }}>
-          <div className="d-flex justify-content-center border">
+          <div className="d-flex justify-content-center ">
             <div className="col-lg-9">
               <div className="card my-5">
                 <div className="card-header bg-info text-white">
