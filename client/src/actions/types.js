@@ -4,3 +4,7 @@ export const CREATE_C_USER = 'CREATE_CLIEN_USER';
 export const LOGOUT = 'LOGOUT';
 export const GET_PROFILE = 'GET_PROFILE';
 export const GET_DEPARTMENTS = 'GET_DEPARTMENTS';
+export const CREATE_COMPLAINT = 'CREATE_COMPLAINT';
+export const LOAD_PENDING = 'LOAD_PENDING';
+export const LOAD_RESOLVED = 'LOAD_RESOLVED';
+export const LOAD_REJECTED = 'LOAD_REJECTED';

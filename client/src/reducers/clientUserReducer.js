@@ -13,7 +13,7 @@ export default (state = st, action) => {
     case GET_PROFILE:
       return { isAuth: !isEmpty(action.payload), user: action.payload };
     case LOGOUT:
-      return {};
+      return action.payload;
     default:
       return state;
   }

@@ -2,31 +2,49 @@ const app = require('express').Router();
 const _ = require('lodash');
 const { authenticate } = require('../middleware/client/clientUserAuth');
 const Complaint = require('../db/models/Complaint');
+const Department = require('../db/models/Department');
 
 app.post('/create', authenticate, (req, res) => {
   if (req.user.role === 'department') {
     return res.send({ msg: "Sorry you don't have permission!" });
   }
-  let data = {
-    createdBy: req.user._id,
-    departmentId: req.body.departmentId,
-    title: req.body.title,
-    text: req.body.text
-  };
-  let complaint = new Complaint(data);
-  complaint
-    .save()
+
+  let departmentName = req.body.department;
+  Department.findOne({ name: departmentName })
     .then(data => {
-      res.send(data);
+      if (data) {
+        let { _id } = data;
+        let da = {
+          createdBy: req.user._id,
+          departmentId: _id,
+          title: req.body.title,
+          text: req.body.text
+        };
+        let complaint = new Complaint(da);
+        complaint
+          .save()
+          .then(data => {
+            res.send(data);
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      } else {
+        return res.send({ msg: 'Department not Found' });
+      }
     })
-    .catch(err => {
-      console.log(err);
-    });
+    .catch(err => console.log(err));
 });
 
 app.get('/pending', authenticate, (req, res) => {
   if (req.user.role === 'department') {
-    Complaint.find({ isPending: false, departmentId: req.user.departmentId })
+    Complaint.find({
+      isPending: false,
+      isRejected: false,
+      isResolved: false,
+      departmentId: req.user.departmentId
+    })
+      .populate('departmentId')
       .then(data => {
         res.send(data);
       })
@@ -35,6 +53,7 @@ app.get('/pending', authenticate, (req, res) => {
       });
   } else if (req.user.role === 'client') {
     Complaint.find({ isPending: true, createdBy: req.user._id })
+      .populate('departmentId')
       .then(data => {
         res.send(data);
       })
@@ -56,6 +75,7 @@ app.get('/resolved', authenticate, (req, res) => {
 
 app.get('/rejected', authenticate, (req, res) => {
   Complaint.find({ isRejected: true, createdBy: req.user._id })
+    .populate('departmentId')
     .then(data => {
       res.send(data);
     })

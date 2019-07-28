@@ -14,18 +14,20 @@ class DashBoard extends Component {
 
   componentDidMount() {
     if (this.props.isAuth) {
-      if (this.props.role === 'department') this.props.history.push('/d/panel');
+      if (this.props.role === 'department')
+        this.props.history.push('/d/panel/allcomplaints');
       else {
-        this.props.history.push('/c/panel');
+        this.props.history.push('/c/panel/complaint');
       }
     }
   }
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.isAuth) {
-      if (nextProps.role === 'department') this.props.history.push('/d/panel');
+      if (nextProps.role === 'department')
+        this.props.history.push('/d/panel/allcomplaints');
       else {
-        this.props.history.push('/c/panel');
+        this.props.history.push('/c/panel/complaint');
       }
     }
   }
