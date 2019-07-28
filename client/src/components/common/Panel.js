@@ -57,7 +57,7 @@ export class Panel extends Component {
                 </Link>
                 <Link
                   className="list-group-item list-group-item-action bg-dark text-info"
-                  to="#list-item-2"
+                  to="/c/panel/resolved"
                 >
                   <i className="fas fa-check-double mr-2" />
                   Resolved

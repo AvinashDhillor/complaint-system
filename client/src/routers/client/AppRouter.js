@@ -10,6 +10,7 @@ import NotFound from '../../components/common/NotFound';
 import Footer from '../../components/common/Footer';
 import CreateComplaint from '../../components/client/CreateComplaint';
 import CPending from '../../components/client/Pending';
+import CResolved from '../../components/client/Resolved';
 import DPending from '../../components/department/Pending';
 import DResolved from '../../components/department/Resolved';
 import Rejected from '../../components/client/Rejected';
@@ -26,6 +27,8 @@ const AppRouter = () => {
           <PublicRouter exact={true} path="/" component={DashBoard} />
           <PrivateRouter path="/d/panel/allresolved" component={AllResolved} />
           <PrivateRouter path="/d/panel/pending" component={DPending} exact />
+          <PrivateRouter path="/c/panel/resolved" component={CResolved} exact />
+
           <PrivateRouter
             path="/c/panel/complaint"
             component={CreateComplaint}

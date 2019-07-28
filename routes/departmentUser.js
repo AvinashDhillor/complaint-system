@@ -59,7 +59,13 @@ app.post('/resolve', authenticate, (req, res) => {
       .then(result => {
         Complaint.findOneAndUpdate(
           { _id: result.complaintId },
-          { $set: { isResolved: true, resolvedId: result._id } },
+          {
+            $set: {
+              isResolved: true,
+              resolvedId: result._id,
+              resolvedBy: result.resolvedBy
+            }
+          },
           { new: true }
         )
           .then(newda => {

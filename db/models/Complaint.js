@@ -17,6 +17,10 @@ const ComplaintSchema = new Schema(
       type: Schema.Types.ObjectId,
       ref: 'Resolved'
     },
+    resolvedBy: {
+      type: Schema.Types.ObjectId,
+      ref: 'ClientUser'
+    },
     isPending: {
       type: Boolean,
       default: true

@@ -25,7 +25,7 @@ export class CreateComplaint extends Component {
     this.props.createComplaint(data);
   };
 
-  componentWillMount() {
+  componentDidMount() {
     this.props.getDepartments();
   }
 

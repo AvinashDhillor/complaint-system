@@ -69,6 +69,10 @@ app.get('/pending', authenticate, (req, res) => {
 
 app.get('/resolved', authenticate, (req, res) => {
   Complaint.find({ isResolved: true, createdBy: req.user._id })
+    .sort({ createdAt: -1 })
+    .populate('resolvedId')
+    .populate('resolvedBy')
+    .populate('departmentId')
     .then(data => {
       res.send(data);
     })
