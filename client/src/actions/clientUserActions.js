@@ -12,6 +12,7 @@ import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
 
 export const loadPending = () => dispatch => {
+  dispatch(setLoading(true));
   axios
     .get('/complaint/pending')
     .then(res => {
@@ -19,13 +20,16 @@ export const loadPending = () => dispatch => {
         type: LOAD_PENDING,
         payload: res.data
       });
+      dispatch(setLoading());
     })
     .catch(err => {
+      dispatch(setLoading());
       console.log(err);
     });
 };
 
 export const loadResolved = () => dispatch => {
+  dispatch(setLoading(true));
   axios
     .get('/complaint/resolved')
     .then(res => {
@@ -33,13 +37,16 @@ export const loadResolved = () => dispatch => {
         type: LOAD_RESOLVED,
         payload: res.data
       });
+      dispatch(setLoading());
     })
     .catch(err => {
+      dispatch(setLoading());
       console.log(err);
     });
 };
 
 export const loadRejected = () => dispatch => {
+  dispatch(setLoading(true));
   axios
     .get('/complaint/rejected')
     .then(res => {
@@ -47,8 +54,10 @@ export const loadRejected = () => dispatch => {
         type: LOAD_REJECTED,
         payload: res.data
       });
+      dispatch(setLoading());
     })
     .catch(err => {
+      dispatch(setLoading());
       console.log(err);
     });
 };
@@ -60,6 +69,7 @@ export const clientLogin = data => dispatch => {
     .then(res => {
       const { token, user } = res.data;
       localStorage.setItem('jwtToken', token);
+      localStorage.setItem('user', JSON.stringify(user));
       setAuthToken(token);
       dispatch({
         type: LOGIN,
@@ -76,7 +86,7 @@ export const createComplaint = data => dispatch => {
   axios
     .post('/complaint/create', data)
     .then(res => {
-      console.log(res.data);
+      dispatch(loadPending());
     })
     .catch(err => {
       console.log(err);

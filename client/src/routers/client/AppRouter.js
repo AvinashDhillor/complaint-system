@@ -69,7 +69,7 @@ const AppRouter = () => {
           {/* Client */}
           <PublicRouter path="/c/signup" component={ClientRegister} />
           <PrivateRouter
-            path="/c/panel/complaint"
+            path="/c/panel/complaint/create"
             component={CreateComplaint}
             exact={true}
           />

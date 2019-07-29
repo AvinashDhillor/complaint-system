@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 import {
   loadPending,
   loadRejected,
@@ -20,6 +20,7 @@ import {
   loadadmin,
   loadComplaints
 } from '../../actions/adminActions';
+import SmallBlinkSpinner from './SmallBlinkSpinner';
 import './css/main.css';
 
 export class Panel extends Component {
@@ -76,49 +77,59 @@ export class Panel extends Component {
           {this.props.role === 'client' ? (
             <>
               <div className="list-group ">
-                <Link
+                <NavLink
                   className="list-group-item bg-dark text-light list-group-item-action"
-                  to="/c/panel/complaint"
+                  to="/c/panel/complaint/create"
+                  activeClassName="active"
                 >
                   <i className="fas fa-envelope-open-text mr-2" />
                   New Complaint
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   className="list-group-item list-group-item-action bg-dark text-info"
                   to="/c/panel/resolved"
                 >
                   <i className="fas fa-check-double mr-2" />
                   Resolved
-                  <span className="badge badge-light ml-3">
-                    {this.props.resolved.length === 0
-                      ? ''
-                      : this.props.resolved.length}
-                  </span>
-                </Link>
-                <Link
+                  {this.props.isLoading && <SmallBlinkSpinner />}
+                  {!this.props.isLoading && (
+                    <span className="badge badge-light ml-3">
+                      {this.props.resolved.length === 0
+                        ? ''
+                        : this.props.resolved.length}
+                    </span>
+                  )}
+                </NavLink>
+                <NavLink
                   className="list-group-item list-group-item-action bg-dark text-info"
                   to="/c/panel/complaint/pending"
                 >
                   <i className="fab fa-font-awesome-flag mr-2" />
                   Pending
-                  <span className="badge badge-light ml-3">
-                    {this.props.pending.length === 0
-                      ? ''
-                      : this.props.pending.length}
-                  </span>
-                </Link>
-                <Link
+                  {this.props.isLoading && <SmallBlinkSpinner />}
+                  {!this.props.isLoading && (
+                    <span className="badge badge-light ml-3">
+                      {this.props.pending.length === 0
+                        ? ''
+                        : this.props.pending.length}
+                    </span>
+                  )}
+                </NavLink>
+                <NavLink
                   className="list-group-item list-group-item-action bg-dark text-info"
                   to="/c/panel/complaint/rejected"
                 >
                   <i className="fas fa-ban mr-2" />
                   Rejected
-                  <span className="badge badge-light ml-3">
-                    {this.props.rejected.length === 0
-                      ? ''
-                      : this.props.rejected.length}
-                  </span>
-                </Link>
+                  {this.props.isLoading && <SmallBlinkSpinner />}
+                  {!this.props.isLoading && (
+                    <span className="badge badge-light ml-3">
+                      {this.props.rejected.length === 0
+                        ? ''
+                        : this.props.rejected.length}
+                    </span>
+                  )}
+                </NavLink>
               </div>
               <br />
               <br />
@@ -133,42 +144,52 @@ export class Panel extends Component {
           ) : this.props.role === 'department' ? (
             <>
               <div className="list-group ">
-                <Link
+                <NavLink
                   className="list-group-item bg-dark text-info list-group-item-action"
                   to="allresolved"
+                  activeClassName="active"
                 >
                   <i className="fas fa-envelope-open-text mr-2" />
                   All Resolved
-                  <span className="badge badge-light ml-3">
-                    {this.props.allresolved.length === 0
-                      ? ''
-                      : this.props.allresolved.length}
-                  </span>
-                </Link>
-                <Link
+                  {this.props.isLoading && <SmallBlinkSpinner />}
+                  {!this.props.isLoading && (
+                    <span className="badge badge-light ml-3">
+                      {this.props.allresolved.length === 0
+                        ? ''
+                        : this.props.allresolved.length}
+                    </span>
+                  )}
+                </NavLink>
+                <NavLink
                   className="list-group-item list-group-item-action bg-dark text-info"
                   to="/d/panel/resolved"
                 >
                   <i className="fas fa-check-double mr-2" />
                   Resolved
-                  <span className="badge badge-light ml-3">
-                    {this.props.resolved.length === 0
-                      ? ''
-                      : this.props.resolved.length}
-                  </span>
-                </Link>
-                <Link
+                  {this.props.isLoading && <SmallBlinkSpinner />}
+                  {!this.props.isLoading && (
+                    <span className="badge badge-light ml-3">
+                      {this.props.resolved.length === 0
+                        ? ''
+                        : this.props.resolved.length}
+                    </span>
+                  )}
+                </NavLink>
+                <NavLink
                   className="list-group-item list-group-item-action bg-dark text-info"
                   to="/d/panel/pending"
                 >
                   <i className="fab fa-font-awesome-flag mr-2" />
                   Pending
-                  <span className="badge badge-light ml-3">
-                    {this.props.pending.length === 0
-                      ? ''
-                      : this.props.pending.length}
-                  </span>
-                </Link>
+                  {this.props.isLoading && <SmallBlinkSpinner />}
+                  {!this.props.isLoading && (
+                    <span className="badge badge-light ml-3">
+                      {this.props.pending.length === 0
+                        ? ''
+                        : this.props.pending.length}
+                    </span>
+                  )}
+                </NavLink>
               </div>
               <br />
               <br />
@@ -183,75 +204,75 @@ export class Panel extends Component {
           ) : this.props.role === 'admin' ? (
             <>
               <div className="list-group ">
-                <Link
+                <NavLink
                   className="list-group-item bg-dark text-info list-group-item-action"
                   to="/a/panel/departments"
+                  activeClassName="active"
                 >
                   <i class="fas fa-university mr-2" />
                   Departments
-                  <span className="badge badge-light ml-3">
-                    {this.props.allresolved.length === 0
-                      ? ''
-                      : this.props.allresolved.length}
-                  </span>
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   className="list-group-item list-group-item-action bg-dark text-info"
                   to="/a/panel/members"
                 >
                   <i class="fas fa-users mr-2" />
                   Memebers
-                  <span className="badge badge-light ml-3">
-                    {this.props.ud.length === 0 ? '' : this.props.ud.length}
-                  </span>
-                </Link>
+                  {this.props.isLoading && <SmallBlinkSpinner />}
+                  {!this.props.isLoading && (
+                    <span className="badge badge-light ml-3">
+                      {this.props.ud.length === 0 ? '' : this.props.ud.length}
+                    </span>
+                  )}
+                </NavLink>
                 <br />
               </div>
               <div className="list-group ">
-                <Link
+                <NavLink
                   className="list-group-item bg-dark text-info list-group-item-action"
                   to="/a/panel/users"
                 >
                   <i class="fas fa-user mr-2" />
                   Users
-                  <span className="badge badge-light ml-3">
-                    {this.props.uc.length === 0 ? '' : this.props.uc.length}
-                  </span>
-                </Link>
-                <Link
+                  {this.props.isLoading && <SmallBlinkSpinner />}
+                  {!this.props.isLoading && (
+                    <span className="badge badge-light ml-3">
+                      {this.props.uc.length === 0 ? '' : this.props.uc.length}
+                    </span>
+                  )}
+                </NavLink>
+                <NavLink
                   className="list-group-item list-group-item-action bg-dark text-info"
                   to="/a/panel/complaints"
                 >
                   <i class="fas fa-archive mr-2" />
                   Complaints
-                  <span className="badge badge-light ml-3">
-                    {this.props.pending.length === 0
-                      ? ''
-                      : this.props.pending.length}
-                  </span>
-                </Link>
+                  {this.props.isLoading && <SmallBlinkSpinner />}
+                  {!this.props.isLoading && (
+                    <span className="badge badge-light ml-3">
+                      {this.props.pending.length === 0
+                        ? ''
+                        : this.props.pending.length}
+                    </span>
+                  )}
+                </NavLink>
               </div>
               <br />
               <div className="list-group ">
-                <Link
+                <NavLink
                   className="list-group-item bg-dark text-info list-group-item-action"
                   to="/a/panel/show/admins"
                 >
                   <i class="fas fa-award mr-2" />
                   Show Admins
-                  <span className="badge badge-light ml-3">
-                    {this.props.allresolved.length === 0
-                      ? ''
-                      : this.props.allresolved.length}
-                  </span>
-                </Link>
-                <Link
+                </NavLink>
+                <NavLink
                   className="list-group-item bg-dark text-info list-group-item-action"
                   to="/a/panel/register"
                 >
                   <i class="fas fa-user-shield mr-2" />
                   New Admin
-                </Link>
+                </NavLink>
               </div>
               <br />
               <button
@@ -274,6 +295,7 @@ export class Panel extends Component {
 const mapStateToProps = state => {
   return {
     role: state.client.user.role,
+    isLoading: state.loadingStatus.loading,
     isAuth: state.client.isAuth,
     pending: state.pending,
     resolved: state.resolved,

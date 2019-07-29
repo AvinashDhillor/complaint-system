@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { verifyUser, deleteUser } from '../../actions/adminActions';
+import BlinkSpinner from '../common/BlinkSpinner';
 
 class Users extends Component {
   handleSubmit1 = e => {
@@ -40,39 +41,41 @@ class Users extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.props.uc.map((data, i) => {
-                  return (
-                    <tr>
-                      <th scope="row">{i + 1}</th>
-                      <td>{data.name}</td>
-                      <td>{data.email}</td>
-                      <td>{data.contactNumber}</td>
-                      <td>{data.address}</td>
-                      <td>
-                        <form onSubmit={this.handleSubmit1}>
-                          <input type="hidden" value={data._id} name="_id" />
-                          <button
-                            type="submit"
-                            className="btn btn-success btn-sm"
-                          >
-                            <i class="fas fa-user-check" />
-                          </button>
-                        </form>
-                      </td>
-                      <td>
-                        <form onSubmit={this.handleSubmit2}>
-                          <input type="hidden" value={data._id} name="_id" />
-                          <button
-                            type="submit"
-                            className="btn btn-danger btn-sm"
-                          >
-                            <i class="fas fa-trash-alt" />
-                          </button>
-                        </form>
-                      </td>
-                    </tr>
-                  );
-                })}
+                {this.props.isLoading && <BlinkSpinner />}
+                {!this.props.isLoading &&
+                  this.props.uc.map((data, i) => {
+                    return (
+                      <tr>
+                        <th scope="row">{i + 1}</th>
+                        <td>{data.name}</td>
+                        <td>{data.email}</td>
+                        <td>{data.contactNumber}</td>
+                        <td>{data.address}</td>
+                        <td>
+                          <form onSubmit={this.handleSubmit1}>
+                            <input type="hidden" value={data._id} name="_id" />
+                            <button
+                              type="submit"
+                              className="btn btn-success btn-sm"
+                            >
+                              <i class="fas fa-user-check" />
+                            </button>
+                          </form>
+                        </td>
+                        <td>
+                          <form onSubmit={this.handleSubmit2}>
+                            <input type="hidden" value={data._id} name="_id" />
+                            <button
+                              type="submit"
+                              className="btn btn-danger btn-sm"
+                            >
+                              <i class="fas fa-trash-alt" />
+                            </button>
+                          </form>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
@@ -95,28 +98,30 @@ class Users extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.props.vc.map((data, i) => {
-                  return (
-                    <tr>
-                      <th scope="row">{i + 1}</th>
-                      <td>{data.name}</td>
-                      <td>{data.email}</td>
-                      <td>{data.contactNumber}</td>
-                      <td>{data.address}</td>
-                      <td>
-                        <form onSubmit={this.handleSubmit2}>
-                          <input type="hidden" value={data._id} name="_id" />
-                          <button
-                            type="submit"
-                            className="btn btn-danger btn-sm"
-                          >
-                            <i class="fas fa-trash-alt" />
-                          </button>
-                        </form>
-                      </td>
-                    </tr>
-                  );
-                })}
+                {this.props.isLoading && <BlinkSpinner />}
+                {!this.props.isLoading &&
+                  this.props.vc.map((data, i) => {
+                    return (
+                      <tr>
+                        <th scope="row">{i + 1}</th>
+                        <td>{data.name}</td>
+                        <td>{data.email}</td>
+                        <td>{data.contactNumber}</td>
+                        <td>{data.address}</td>
+                        <td>
+                          <form onSubmit={this.handleSubmit2}>
+                            <input type="hidden" value={data._id} name="_id" />
+                            <button
+                              type="submit"
+                              className="btn btn-danger btn-sm"
+                            >
+                              <i class="fas fa-trash-alt" />
+                            </button>
+                          </form>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
@@ -129,7 +134,8 @@ class Users extends Component {
 const mapStateToProps = state => {
   return {
     uc: state.uc,
-    vc: state.vc
+    vc: state.vc,
+    isLoading: state.loadingStatus.loading
   };
 };
 

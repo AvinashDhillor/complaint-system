@@ -15,7 +15,7 @@ export const PublicRouter = ({
         role === 'department' ? (
           <Redirect to="/d/panel/allresolved" />
         ) : role === 'client' ? (
-          <Redirect to="/c/panel/complaint" />
+          <Redirect to="/c/panel/complaint/create" />
         ) : (
           <div>
             <Component {...props} />

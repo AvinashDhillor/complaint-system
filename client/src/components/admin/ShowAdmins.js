@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { loadadmin } from '../../actions/adminActions';
+import BlinkSpinner from '../common/BlinkSpinner';
 
 class ShowAdmins extends Component {
   componentDidMount() {
@@ -27,23 +28,25 @@ class ShowAdmins extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.props.ad.map((data, i) => {
-                  return (
-                    <tr>
-                      <th scope="row">{i + 1}</th>
-                      <td>{data.name}</td>
-                      <td>{data.email}</td>
-                      <td>{data.contactNumber}</td>
-                      <td>{data.address}</td>
+                {this.props.isLoading && <BlinkSpinner />}
+                {!this.props.isLoading &&
+                  this.props.ad.map((data, i) => {
+                    return (
+                      <tr>
+                        <th scope="row">{i + 1}</th>
+                        <td>{data.name}</td>
+                        <td>{data.email}</td>
+                        <td>{data.contactNumber}</td>
+                        <td>{data.address}</td>
 
-                      <td>
-                        <button className="btn btn-danger btn-sm">
-                          <i class="fas fa-trash-alt" />
-                        </button>
-                      </td>
-                    </tr>
-                  );
-                })}
+                        <td>
+                          <button className="btn btn-danger btn-sm">
+                            <i class="fas fa-trash-alt" />
+                          </button>
+                        </td>
+                      </tr>
+                    );
+                  })}
               </tbody>
             </table>
           </div>
@@ -55,7 +58,8 @@ class ShowAdmins extends Component {
 
 const mapStateToProps = state => {
   return {
-    ad: state.ad
+    ad: state.ad,
+    isLoading: state.loadingStatus.loading
   };
 };
 
