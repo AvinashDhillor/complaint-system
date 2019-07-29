@@ -7,6 +7,8 @@ const Department = require('../db/models/Department');
 
 const { authenticate } = require('../middleware/client/clientUserAuth.js');
 
+const signupValidation = require('../validations/signupValidation');
+
 app.post('/signup', authenticate, (req, res) => {
   var body = _.pick(req.body, [
     'name',
@@ -16,19 +18,37 @@ app.post('/signup', authenticate, (req, res) => {
     'role',
     'contactNumber'
   ]);
-  body.isVerified = true;
-  let user = new User(body);
-  user
-    .save()
-    .then(() => {
-      return user.generateAuthToken('auth');
-    })
-    .then(token => {
-      res.header('cu-auth', token).send(user);
-    })
-    .catch(e => {
-      res.status(400).send(e);
-    });
+  let { isValid, message } = signupValidation(body);
+  if (!isValid) {
+    return res
+      .status(400)
+      .send({ msg: `oops! we got some problems.😨 ${message}` });
+  }
+
+  User.findOne({ email: body.email }).then(da => {
+    if (da) {
+      return res
+        .status(400)
+        .send({ msg: `wow 😲 Someone is already using this email 👎 ` });
+    } else {
+      body.isVerified = true;
+      let user = new User(body);
+      user
+        .save()
+        .then(() => {
+          return user.generateAuthToken('auth');
+        })
+        .then(token => {
+          res.header('cu-auth', token).send({
+            msg:
+              'yay! 🥳 Account is registered. Please ✔ verify your email account.'
+          });
+        })
+        .catch(e => {
+          res.status(400).send(e);
+        });
+    }
+  });
 });
 
 app.get('/users/me', authenticate, (req, res) => {

@@ -1,7 +1,11 @@
 import React, { Component } from 'react';
-import { getDepartments } from '../../actions/departmentUserActions';
+import {
+  getDepartments,
+  clearMessage
+} from '../../actions/departmentUserActions';
 import { createComplaint } from '../../actions/clientUserActions';
 import { connect } from 'react-redux';
+import ToastPanel from '../common/ToastPanel';
 
 export class CreateComplaint extends Component {
   constructor(props) {
@@ -11,7 +15,9 @@ export class CreateComplaint extends Component {
       description: '',
       department: '',
       isLoading: false,
-      departments: [{ name: '' }]
+      departments: [{ name: '' }],
+      isEnable: false,
+      text: ''
     };
   }
 
@@ -22,7 +28,7 @@ export class CreateComplaint extends Component {
       text: this.state.description,
       department: this.state.department
     };
-    this.props.createComplaint(data);
+    this.props.createComplaint(data, this.props.history);
   };
 
   componentDidMount() {
@@ -34,6 +40,21 @@ export class CreateComplaint extends Component {
       isLoading: nextProps.isLoading,
       departments: nextProps.departments
     });
+
+    if (nextProps.isMessage && !this.state.isEnable) {
+      this.setState({
+        isEnable: true,
+        text: nextProps.msg
+      });
+
+      setTimeout(() => {
+        this.props.clearMessage();
+        this.setState({
+          isEnable: false,
+          text: ''
+        });
+      }, 3000);
+    }
   }
 
   onTitleChange = e => {
@@ -60,6 +81,8 @@ export class CreateComplaint extends Component {
   render() {
     return (
       <>
+        <ToastPanel isEnable={this.state.isEnable} text={this.state.text} />
+
         <div style={{ marginLeft: '230px' }}>
           <div className="d-flex justify-content-center ">
             <div className="col-lg-9">
@@ -125,10 +148,12 @@ export class CreateComplaint extends Component {
 
 const mapStateToProps = state => ({
   isLoading: state.loadingStatus.loading,
-  departments: state.departments
+  departments: state.departments,
+  isMessage: !state.msg.isEmpty,
+  msg: state.msg.text
 });
 
 export default connect(
   mapStateToProps,
-  { getDepartments, createComplaint }
+  { getDepartments, createComplaint, clearMessage }
 )(CreateComplaint);

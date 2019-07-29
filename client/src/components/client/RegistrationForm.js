@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-
+import { clearMessage } from '../../actions/departmentUserActions';
+import ToastPanel from '../common/ToastPanel';
 import { userRegister } from '../../actions/clientUserActions';
 
 export class RegistrationForm extends Component {
@@ -13,7 +14,9 @@ export class RegistrationForm extends Component {
       role: 'client',
       address: '',
       number: '',
-      isLoading: false
+      isLoading: false,
+      isEnable: false,
+      text: ''
     };
   }
 
@@ -21,6 +24,21 @@ export class RegistrationForm extends Component {
     this.setState({
       isLoading: nextProps.isLoading
     });
+
+    if (nextProps.isMessage && !this.state.isEnable) {
+      this.setState({
+        isEnable: true,
+        text: nextProps.msg
+      });
+
+      setTimeout(() => {
+        this.props.clearMessage();
+        this.setState({
+          isEnable: false,
+          text: ''
+        });
+      }, 3000);
+    }
   }
 
   register = e => {
@@ -34,7 +52,7 @@ export class RegistrationForm extends Component {
       contactNumber: this.state.number
     };
 
-    this.props.userRegister(data);
+    this.props.userRegister(data, this.props.history);
   };
 
   onNameChange = e => {
@@ -71,6 +89,8 @@ export class RegistrationForm extends Component {
   render() {
     return (
       <>
+        <ToastPanel isEnable={this.state.isEnable} text={this.state.text} />
+
         <div className="container my-5">
           <div className="row justify-content-center">
             <div className="col-lg-6">
@@ -189,10 +209,12 @@ export class RegistrationForm extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.loadingStatus.loading
+  isLoading: state.loadingStatus.loading,
+  isMessage: !state.msg.isEmpty,
+  msg: state.msg.text
 });
 
 export default connect(
   mapStateToProps,
-  { userRegister }
+  { userRegister, clearMessage }
 )(RegistrationForm);

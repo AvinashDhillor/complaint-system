@@ -6,7 +6,9 @@ import {
   GET_PROFILE,
   LOAD_PENDING,
   LOAD_REJECTED,
-  LOAD_RESOLVED
+  LOAD_RESOLVED,
+  SET_MESSAGE,
+  CLEAR_MESSAGE
 } from './types';
 import axios from 'axios';
 import setAuthToken from '../utils/setAuthToken';
@@ -78,17 +80,27 @@ export const clientLogin = data => dispatch => {
       dispatch(setLoading());
     })
     .catch(err => {
+      let { msg } = err.response.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
       console.log(err);
     });
 };
 
-export const createComplaint = data => dispatch => {
+export const createComplaint = (data, history) => dispatch => {
   axios
     .post('/complaint/create', data)
     .then(res => {
+      let { msg } = res.data;
+      dispatch(setMessage(msg));
       dispatch(loadPending());
+      setTimeout(() => {
+        history.push('/c/panel/complaint/pending');
+      }, 2000);
     })
     .catch(err => {
+      let { msg } = err.response.data;
+      dispatch(setMessage(msg));
       console.log(err);
     });
 };
@@ -107,20 +119,24 @@ export const getProfile = cb => {
     });
 };
 
-export const userRegister = data => dispatch => {
+export const userRegister = (data, history) => dispatch => {
   dispatch(setLoading(true));
   axios
     .post('/c/users/signup', data)
     .then(res => {
-      if (res.data) {
-        console.log(res.data);
-      }
+      let { msg } = res.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
+      setTimeout(() => {
+        history.push('/');
+      }, 3000);
     })
     .catch(err => {
+      let { msg } = err.response.data;
+      dispatch(setMessage(msg));
       dispatch(setLoading());
       console.log(err);
     });
-  dispatch(setLoading());
 };
 
 export const clientLogout = () => dispatch => {
@@ -151,4 +167,23 @@ export const setLoading = (isLoading = false) => {
       type: 'UNSET_LOADING'
     };
   }
+};
+
+export const setMessage = (text = '') => {
+  if (text !== '') {
+    return {
+      type: SET_MESSAGE,
+      payload: text
+    };
+  } else {
+    return {
+      type: CLEAR_MESSAGE
+    };
+  }
+};
+
+export const clearMessage = () => dispatch => {
+  dispatch({
+    type: CLEAR_MESSAGE
+  });
 };

@@ -2,9 +2,12 @@ import {
   GET_DEPARTMENTS,
   CREATE_D_USER,
   LOAD_RESOLVED,
-  LOAD_ALL_RESOLVED
+  LOAD_ALL_RESOLVED,
+  SET_MESSAGE,
+  CLEAR_MESSAGE
 } from './types';
 import axios from 'axios';
+import { loadPending } from './clientUserActions';
 
 export const getDepartments = () => dispatch => {
   axios
@@ -20,20 +23,24 @@ export const getDepartments = () => dispatch => {
     });
 };
 
-export const duserRegister = data => dispatch => {
+export const duserRegister = (data, history) => dispatch => {
   dispatch(setLoading(true));
   axios
     .post('/d/users/signup', data)
     .then(res => {
-      if (res.data) {
-        console.log(res.data);
-      }
+      let { msg } = res.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
+      setTimeout(() => {
+        history.push('/');
+      }, 3000);
     })
     .catch(err => {
+      let { msg } = err.response.data;
+      dispatch(setMessage(msg));
       dispatch(setLoading());
       console.log(err);
     });
-  dispatch(setLoading());
 };
 
 export const dloadResolved = () => dispatch => {
@@ -79,7 +86,32 @@ export const resolveComplaint = data => dispatch => {
   axios
     .post('/d/resolve', data)
     .then(res => {
-      console.log(res.data);
+      let { msg } = res.data;
+      dispatch(setMessage(msg));
+      dispatch(loadPending());
     })
-    .catch(err => console.log(err));
+    .catch(err => {
+      let { msg } = err.response.data;
+      dispatch(setMessage(msg));
+      console.log(err);
+    });
+};
+
+export const setMessage = (text = '') => {
+  if (text !== '') {
+    return {
+      type: SET_MESSAGE,
+      payload: text
+    };
+  } else {
+    return {
+      type: CLEAR_MESSAGE
+    };
+  }
+};
+
+export const clearMessage = () => dispatch => {
+  dispatch({
+    type: CLEAR_MESSAGE
+  });
 };

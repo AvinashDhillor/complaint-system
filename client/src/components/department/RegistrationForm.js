@@ -1,8 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
-import { duserRegister } from '../../actions/departmentUserActions';
-import { getDepartments } from '../../actions/departmentUserActions';
+import {
+  duserRegister,
+  getDepartments,
+  clearMessage
+} from '../../actions/departmentUserActions';
+import ToastPanel from '../common/ToastPanel';
 
 export class RegistrationForm extends Component {
   constructor(props) {
@@ -16,7 +20,9 @@ export class RegistrationForm extends Component {
       address: '',
       number: '',
       isLoading: false,
-      departments: [{ name: '' }]
+      departments: [{ name: '' }],
+      isEnable: false,
+      text: ''
     };
   }
   componentWillMount() {
@@ -28,6 +34,21 @@ export class RegistrationForm extends Component {
       isLoading: nextProps.isLoading,
       departments: nextProps.departments
     });
+
+    if (nextProps.isMessage && !this.state.isEnable) {
+      this.setState({
+        isEnable: true,
+        text: nextProps.msg
+      });
+
+      setTimeout(() => {
+        this.props.clearMessage();
+        this.setState({
+          isEnable: false,
+          text: ''
+        });
+      }, 3000);
+    }
   }
 
   register = e => {
@@ -42,7 +63,7 @@ export class RegistrationForm extends Component {
       contactNumber: this.state.number
     };
 
-    this.props.duserRegister(data);
+    this.props.duserRegister(data, this.props.history);
   };
 
   onNameChange = e => {
@@ -85,6 +106,8 @@ export class RegistrationForm extends Component {
   render() {
     return (
       <>
+        <ToastPanel isEnable={this.state.isEnable} text={this.state.text} />
+
         <div className="container my-5">
           <div className="row justify-content-center">
             <div className="col-lg-6">
@@ -220,10 +243,12 @@ export class RegistrationForm extends Component {
 
 const mapStateToProps = state => ({
   isLoading: state.loadingStatus.loading,
-  departments: state.departments
+  departments: state.departments,
+  isMessage: !state.msg.isEmpty,
+  msg: state.msg.text
 });
 
 export default connect(
   mapStateToProps,
-  { duserRegister, getDepartments }
+  { duserRegister, getDepartments, clearMessage }
 )(RegistrationForm);

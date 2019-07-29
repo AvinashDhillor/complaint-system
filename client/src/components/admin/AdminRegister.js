@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import { registerAdmin } from '../../actions/adminActions';
+import { clearMessage } from '../../actions/departmentUserActions';
+import ToastPanel from '../common/ToastPanel';
 
 export class AdminRegister extends Component {
   constructor(props) {
@@ -13,7 +15,9 @@ export class AdminRegister extends Component {
       role: 'admin',
       address: '',
       number: '',
-      isLoading: false
+      isLoading: false,
+      isEnable: false,
+      text: ''
     };
   }
 
@@ -21,6 +25,21 @@ export class AdminRegister extends Component {
     this.setState({
       isLoading: nextProps.isLoading
     });
+
+    if (nextProps.isMessage && !this.state.isEnable) {
+      this.setState({
+        isEnable: true,
+        text: nextProps.msg
+      });
+
+      setTimeout(() => {
+        this.props.clearMessage();
+        this.setState({
+          isEnable: false,
+          text: ''
+        });
+      }, 3000);
+    }
   }
 
   register = e => {
@@ -34,7 +53,7 @@ export class AdminRegister extends Component {
       contactNumber: this.state.number
     };
 
-    this.props.registerAdmin(data);
+    this.props.registerAdmin(data, this.props.history);
   };
 
   onNameChange = e => {
@@ -71,6 +90,8 @@ export class AdminRegister extends Component {
   render() {
     return (
       <>
+        <ToastPanel isEnable={this.state.isEnable} text={this.state.text} />
+
         <div style={{ marginLeft: '230px' }}>
           <div className="d-flex justify-content-center">
             <div className="col-6 my-4">
@@ -189,10 +210,12 @@ export class AdminRegister extends Component {
 }
 
 const mapStateToProps = state => ({
-  isLoading: state.loadingStatus.loading
+  isLoading: state.loadingStatus.loading,
+  isMessage: !state.msg.isEmpty,
+  msg: state.msg.text
 });
 
 export default connect(
   mapStateToProps,
-  { registerAdmin }
+  { registerAdmin, clearMessage }
 )(AdminRegister);

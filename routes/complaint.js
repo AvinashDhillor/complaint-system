@@ -4,11 +4,21 @@ const { authenticate } = require('../middleware/client/clientUserAuth');
 const Complaint = require('../db/models/Complaint');
 const Department = require('../db/models/Department');
 
+const complaintValidation = require('../validations/complaintValidation');
+
 app.post('/create', authenticate, (req, res) => {
   if (req.user.role === 'department') {
-    return res.send({ msg: "Sorry you don't have permission!" });
+    return res.status(400).send({ msg: "Sorry you don't have permission!" });
   }
-
+  let { isValid, message } = complaintValidation({
+    title: req.body.title,
+    text: req.body.text
+  });
+  if (!isValid) {
+    return res
+      .status(400)
+      .send({ msg: `oops! we got some problems.😨 ${message}` });
+  }
   let departmentName = req.body.department;
   Department.findOne({ name: departmentName })
     .then(data => {
@@ -20,17 +30,20 @@ app.post('/create', authenticate, (req, res) => {
           title: req.body.title,
           text: req.body.text
         };
+
         let complaint = new Complaint(da);
         complaint
           .save()
           .then(data => {
-            res.send(data);
+            if (data) {
+              res.send({ msg: `Your complaint is under process.🎈` });
+            }
           })
           .catch(err => {
             console.log(err);
           });
       } else {
-        return res.send({ msg: 'Department not Found' });
+        return res.status(400).send({ msg: 'Department not Found' });
       }
     })
     .catch(err => console.log(err));

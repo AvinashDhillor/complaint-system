@@ -3,7 +3,7 @@ import isEmpty from '../validation/isEmpty';
 
 const st = {
   isAuth: false,
-  user: {}
+  user: { role: '' }
 };
 
 export default (state = st, action) => {

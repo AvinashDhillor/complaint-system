@@ -11,7 +11,13 @@ app.post('/new', authenticate, (req, res) => {
     department
       .save()
       .then(data => {
-        return res.send(data);
+        let { _id, name } = data;
+        let moddata = {
+          _id: _id,
+          name: name,
+          msg: `You have successfully created ${name} department 🎉`
+        };
+        return res.send(moddata);
       })
       .catch(err => {
         console.log(err);

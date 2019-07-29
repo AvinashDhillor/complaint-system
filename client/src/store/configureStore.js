@@ -14,6 +14,7 @@ import uc from '../reducers/ucUserReducer';
 import vd from '../reducers/vdUserReducer';
 import vc from '../reducers/vcUserReducer';
 import ad from '../reducers/adminUserReducer';
+import msgReducer from '../reducers/msgReducer';
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -31,7 +32,8 @@ export default () => {
       vd: vd,
       vc: vc,
       ud: ud,
-      ad: ad
+      ad: ad,
+      msg: msgReducer
     }),
     composeEnhancers(applyMiddleware(thunk))
   );

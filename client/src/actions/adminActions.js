@@ -6,7 +6,9 @@ import {
   LOAD_VERIFIED_DUSER,
   LOAD_ADMIN_USER,
   LOAD_ADMIN_COMPLAINTS,
-  GET_DEPARTMENTS
+  GET_DEPARTMENTS,
+  SET_MESSAGE,
+  CLEAR_MESSAGE
 } from './types';
 import { getDepartments } from './departmentUserActions';
 
@@ -26,20 +28,31 @@ export const addDepartment = data => dispatch => {
   axios
     .post('/department/new', data)
     .then(res => {
+      let { msg } = res.data;
       dispatch(getDepartments());
+      dispatch(setMessage(msg));
     })
     .catch(err => {
       console.log(err);
     });
 };
 
-export const registerAdmin = data => dispatch => {
+export const registerAdmin = (data, history) => dispatch => {
+  dispatch(setLoading(true));
   axios
     .post('/admin/signup', data)
     .then(res => {
-      console.log(res.data);
+      let { msg } = res.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
+      setTimeout(() => {
+        history.push('/');
+      }, 3000);
     })
     .catch(err => {
+      let { msg } = err.response.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
       console.log(err);
     });
 };
@@ -198,4 +211,17 @@ export const deleteUser = data => dispatch => {
     .catch(err => {
       console.log(err);
     });
+};
+
+export const setMessage = (text = '') => {
+  if (text !== '') {
+    return {
+      type: SET_MESSAGE,
+      payload: text
+    };
+  } else {
+    return {
+      type: CLEAR_MESSAGE
+    };
+  }
 };
