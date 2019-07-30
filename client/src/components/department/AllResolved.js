@@ -15,29 +15,29 @@ class AllResolved extends Component {
           )}
           {!this.props.isLoading &&
             this.props.allresolved.length !== 0 &&
-            this.props.allresolved.map(data => {
+            this.props.allresolved.map((data, i) => {
               return (
-                <div className="col-11">
-                  <div class="card my-3 text-white bg-info">
-                    <div class="card-header">
+                <div className="col-11" key={i}>
+                  <div className="card my-3 text-white bg-info">
+                    <div className="card-header">
                       {/* {data.departmentId.name}{' '} */}
                       <span>
                         {moment(data.complaintId.createdAt).fromNow()}
                       </span>
                     </div>
-                    <div class="card-body">
-                      <h5 class="card-title">{data.complaintId.title}</h5>
-                      <p class="card-text">{data.complaintId.text}</p>
+                    <div className="card-body">
+                      <h5 className="card-title">{data.complaintId.title}</h5>
+                      <p className="card-text">{data.complaintId.text}</p>
                       <hr />
-                      <div class="card bg-dark">
-                        <div class="card-header">
+                      <div className="card bg-dark">
+                        <div className="card-header">
                           {/* {data.departmentId.name}{' '} */}
                           {data.resolvedBy.name}
                           <span className="float-right">
                             {moment(data.createdAt).fromNow()}
                           </span>
                         </div>
-                        <div class="card-body">{data.text}</div>
+                        <div className="card-body">{data.text}</div>
                       </div>
                     </div>
                   </div>

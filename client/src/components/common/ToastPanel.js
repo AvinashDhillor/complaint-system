@@ -15,7 +15,7 @@ const ToastPanel = props => {
       >
         <Toast.Header>
           <strong className="mr-auto">
-            <i class="fas fa-robot mr-1" />
+            <i className="fas fa-robot mr-1" />
             Micky
           </strong>
         </Toast.Header>

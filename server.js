@@ -26,8 +26,6 @@ app.use('/admin', admin);
 
 const PORT = process.env.PORT || 5000;
 
-// sendMail('avinashdhillor24@gmail.com', 'nothing', 'nothing');
-
 app.listen(PORT, err => {
   if (err) {
     console.log('Unable connecting to server.');

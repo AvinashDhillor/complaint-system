@@ -1,5 +1,4 @@
 const _ = require('lodash');
-const check = require('validator');
 
 const resolveValidation = data => {
   let { text } = data;

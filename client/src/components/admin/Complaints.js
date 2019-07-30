@@ -39,39 +39,40 @@ class Complaints extends Component {
           )}
           {!this.props.isLoading &&
             this.props.pending.length !== 0 &&
-            this.props.pending.map(data => {
+            this.props.pending.map((data, i) => {
               return (
-                <div className="col-11">
-                  <div class="card my-3 text-white bg-info ">
-                    <div class="card-header">
-                      <span class="badge badge-light">
-                        <i class="fas fa-university" /> {data.departmentId.name}
+                <div className="col-11" key={i}>
+                  <div className="card my-3 text-white bg-info ">
+                    <div className="card-header">
+                      <span className="badge badge-light">
+                        <i className="fas fa-university" />{' '}
+                        {data.departmentId.name}
                       </span>{' '}
-                      <span class="badge badge-warning">
-                        <i class="fas fa-user-tag" /> {data.createdBy.name}
+                      <span className="badge badge-warning">
+                        <i className="fas fa-user-tag" /> {data.createdBy.name}
                       </span>{' '}
-                      <span class="badge badge-dark">
-                        <i class="fas fa-at" /> {data.createdBy.email}
+                      <span className="badge badge-dark">
+                        <i className="fas fa-at" /> {data.createdBy.email}
                       </span>
                       <span className="float-right">
                         {moment(data.createdAt).fromNow()}
                       </span>
                     </div>
-                    <div class="card-body">
-                      <h5 class="card-title">{data.title}</h5>
-                      <p class="card-text">{data.text}</p>
+                    <div className="card-body">
+                      <h5 className="card-title">{data.title}</h5>
+                      <p className="card-text">{data.text}</p>
                       <div className="row">
                         <form onSubmit={this.handleSubmit1}>
                           <input type="hidden" value={data._id} name="_id" />
-                          <button type="submit" class="btn btn-info ">
-                            <i class="fas fa-check mr-2" />
+                          <button type="submit" className="btn btn-info ">
+                            <i className="fas fa-check mr-2" />
                             Approve
                           </button>
                         </form>
                         <form onSubmit={this.handleSubmit2}>
                           <input type="hidden" value={data._id} name="_id" />
-                          <button type="submit" class="btn btn-info ">
-                            <i class="fas fa-times mr-2" />
+                          <button type="submit" className="btn btn-info ">
+                            <i className="fas fa-times mr-2" />
                             Reject
                           </button>
                         </form>

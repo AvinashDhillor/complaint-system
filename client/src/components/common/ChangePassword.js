@@ -66,7 +66,7 @@ export class ChangePassword extends Component {
             <div className="col-lg-9">
               <div className="card my-5">
                 <div className="card-header bg-info text-white">
-                  <i class="fas fa-unlock-alt mr-2" />
+                  <i className="fas fa-unlock-alt mr-2" />
                   Change Password
                 </div>
                 <div className="card-body">
@@ -94,7 +94,7 @@ export class ChangePassword extends Component {
                     </div>
 
                     <button type="submit" className="btn btn-info float-right">
-                      <i class="fas fa-key mr-2" />
+                      <i className="fas fa-key mr-2" />
                       Change Password
                     </button>
                   </form>

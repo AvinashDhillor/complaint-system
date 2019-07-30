@@ -12,19 +12,19 @@ const Rejected = props => {
         {!props.isLoading && props.rejected.length === 0 && <NothingToShow />}
         {!props.isLoading &&
           props.rejected.length !== 0 &&
-          props.rejected.map(data => {
+          props.rejected.map((data, i) => {
             return (
-              <div className="col-11">
-                <div class="card my-3 text-white bg-danger ">
-                  <div class="card-header">
+              <div className="col-11" key={i}>
+                <div className="card my-3 text-white bg-danger ">
+                  <div className="card-header">
                     {data.departmentId.name}
                     <span className="float-right">
                       {moment(data.createdAt).fromNow()}
                     </span>
                   </div>
-                  <div class="card-body">
-                    <h5 class="card-title">{data.title}</h5>
-                    <p class="card-text">{data.text}</p>
+                  <div className="card-body">
+                    <h5 className="card-title">{data.title}</h5>
+                    <p className="card-text">{data.text}</p>
                   </div>
                 </div>
               </div>

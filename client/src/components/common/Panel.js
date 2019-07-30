@@ -209,14 +209,14 @@ export class Panel extends Component {
                   to="/a/panel/departments"
                   activeClassName="active"
                 >
-                  <i class="fas fa-university mr-2" />
+                  <i className="fas fa-university mr-2" />
                   Departments
                 </NavLink>
                 <NavLink
                   className="list-group-item list-group-item-action bg-dark text-info"
                   to="/a/panel/members"
                 >
-                  <i class="fas fa-users mr-2" />
+                  <i className="fas fa-users mr-2" />
                   Memebers
                   {this.props.isLoading && <SmallBlinkSpinner />}
                   {!this.props.isLoading && (
@@ -232,7 +232,7 @@ export class Panel extends Component {
                   className="list-group-item bg-dark text-info list-group-item-action"
                   to="/a/panel/users"
                 >
-                  <i class="fas fa-user mr-2" />
+                  <i className="fas fa-user mr-2" />
                   Users
                   {this.props.isLoading && <SmallBlinkSpinner />}
                   {!this.props.isLoading && (
@@ -245,7 +245,7 @@ export class Panel extends Component {
                   className="list-group-item list-group-item-action bg-dark text-info"
                   to="/a/panel/complaints"
                 >
-                  <i class="fas fa-archive mr-2" />
+                  <i className="fas fa-archive mr-2" />
                   Complaints
                   {this.props.isLoading && <SmallBlinkSpinner />}
                   {!this.props.isLoading && (
@@ -263,14 +263,14 @@ export class Panel extends Component {
                   className="list-group-item bg-dark text-info list-group-item-action"
                   to="/a/panel/show/admins"
                 >
-                  <i class="fas fa-award mr-2" />
+                  <i className="fas fa-award mr-2" />
                   Show Admins
                 </NavLink>
                 <NavLink
                   className="list-group-item bg-dark text-info list-group-item-action"
                   to="/a/panel/register"
                 >
-                  <i class="fas fa-user-shield mr-2" />
+                  <i className="fas fa-user-shield mr-2" />
                   New Admin
                 </NavLink>
               </div>

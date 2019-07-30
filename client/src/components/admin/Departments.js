@@ -4,6 +4,7 @@ import {
   getDepartments,
   clearMessage
 } from '../../actions/departmentUserActions';
+import { Link } from 'react-router-dom';
 import { addDepartment, deleteDepartment } from '../../actions/adminActions';
 import BlinkSpinner from '../common/BlinkSpinner';
 import ToastPanel from '../common/ToastPanel';
@@ -66,18 +67,18 @@ class Departments extends Component {
                 Add Department
               </h3>
               <form onSubmit={this.handleSubmit}>
-                <div class="input-group mt-4 mb-3">
+                <div className="input-group mt-4 mb-3">
                   <input
                     type="text"
-                    class="form-control"
+                    className="form-control"
                     name="dname"
                     placeholder="Enter department name"
                     aria-label="Recipient's username"
                     aria-describedby="button-addon2"
                   />
-                  <div class="input-group-append">
+                  <div className="input-group-append">
                     <button
-                      class="btn btn-info"
+                      className="btn btn-info"
                       type="submit"
                       id="button-addon2"
                     >
@@ -92,11 +93,15 @@ class Departments extends Component {
             <div className="col-9 mt-4">
               <h3 className="text-info text-black-50 display-4">Departments</h3>
               {this.props.isLoading && <BlinkSpinner />}
-              <div class="list-group mt-4 ">
+              <div className="list-group mt-4 ">
                 {!this.props.isLoading &&
-                  this.props.departments.map(data => {
+                  this.props.departments.map((data, i) => {
                     return (
-                      <a class="list-group-item list-group-item-action">
+                      <Link
+                        to="#"
+                        className="list-group-item list-group-item-action"
+                        key={i}
+                      >
                         {data.name}
                         <form
                           className="float-right"
@@ -108,10 +113,10 @@ class Departments extends Component {
                             className="btn btn-danger btn-sm"
                             disabled
                           >
-                            <i class="fas fa-trash-alt" />
+                            <i className="fas fa-trash-alt" />
                           </button>
                         </form>
-                      </a>
+                      </Link>
                     );
                   })}
               </div>

@@ -58,17 +58,17 @@ class Pending extends Component {
             )}
             {!this.props.isLoading &&
               this.props.pending.length !== 0 &&
-              this.props.pending.map(data => {
+              this.props.pending.map((data, i) => {
                 return (
-                  <div className="col-11">
-                    <div class="card my-3 text-white bg-info">
-                      <div class="card-header">
+                  <div className="col-11" key={i}>
+                    <div className="card my-3 text-white bg-info">
+                      <div className="card-header">
                         {/* {data.departmentId.name}{' '} */}
                         <span>{moment(data.createdAt).fromNow()}</span>
                       </div>
-                      <div class="card-body">
-                        <h5 class="card-title">{data.title}</h5>
-                        <p class="card-text">{data.text}</p>
+                      <div className="card-body">
+                        <h5 className="card-title">{data.title}</h5>
+                        <p className="card-text">{data.text}</p>
                         <hr />
                         <form onSubmit={this.handleSubmit}>
                           <input
@@ -76,19 +76,19 @@ class Pending extends Component {
                             name="complaintId"
                             value={data._id}
                           />
-                          <div class="form-group">
+                          <div className="form-group">
                             <label for="complaint-resolve">
                               Resolve Complaint
                             </label>
                             <textarea
-                              class="form-control"
+                              className="form-control"
                               id="complaint-resolve"
                               name="resolveData"
                               rows="3"
                             />
                           </div>
-                          <button type="submit" class="btn btn-light mr-2">
-                            <i class="fas fa-user-ninja mr-2" />
+                          <button type="submit" className="btn btn-light mr-2">
+                            <i className="fas fa-user-ninja mr-2" />
                             Resolve
                           </button>
                         </form>

@@ -15,21 +15,21 @@ class Resolved extends Component {
           )}
           {!this.props.isLoading &&
             this.props.resolved.length !== 0 &&
-            this.props.resolved.map(data => {
+            this.props.resolved.map((data, i) => {
               return (
-                <div className="col-11">
-                  <div class="card my-3 text-white bg-info">
-                    <div class="card-header">
+                <div className="col-11" key={i}>
+                  <div className="card my-3 text-white bg-info">
+                    <div className="card-header">
                       <span>{moment(data.createdAt).fromNow()}</span>
                     </div>
-                    <div class="card-body">
-                      <h5 class="card-title">{data.title}</h5>
-                      <p class="card-text">{data.text}</p>
+                    <div className="card-body">
+                      <h5 className="card-title">{data.title}</h5>
+                      <p className="card-text">{data.text}</p>
                       <hr />
-                      <div class="card bg-dark">
-                        <div class="card-header">
+                      <div className="card bg-dark">
+                        <div className="card-header">
                           {data.resolvedBy.name} from{' '}
-                          <span class="badge badge-warning">
+                          <span className="badge badge-warning">
                             {' '}
                             {data.departmentId.name}
                           </span>{' '}
@@ -38,7 +38,7 @@ class Resolved extends Component {
                             {moment(data.resolvedId.createdAt).fromNow()}
                           </span>
                         </div>
-                        <div class="card-body">{data.resolvedId.text}</div>
+                        <div className="card-body">{data.resolvedId.text}</div>
                       </div>
                     </div>
                   </div>

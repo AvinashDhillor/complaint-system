@@ -15,40 +15,42 @@ class ShowAdmins extends Component {
         <div className="d-flex justify-content-center">
           <div className="col-11 mt-4">
             <h3 className="text-left text-black-50 display-4">Admins</h3>
+            {this.props.isLoading && <BlinkSpinner />}
+            {!this.props.isLoading && (
+              <>
+                <table className="table table-striped mt-4">
+                  <thead className="thead-dark">
+                    <tr>
+                      <th scope="col">S.No.</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Phone No.</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.props.ad.map((data, i) => {
+                      return (
+                        <tr key={i}>
+                          <th scope="row">{i + 1}</th>
+                          <td>{data.name}</td>
+                          <td>{data.email}</td>
+                          <td>{data.contactNumber}</td>
+                          <td>{data.address}</td>
 
-            <table class="table table-striped mt-4">
-              <thead className="thead-dark">
-                <tr>
-                  <th scope="col">S.No.</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Phone No.</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.props.isLoading && <BlinkSpinner />}
-                {!this.props.isLoading &&
-                  this.props.ad.map((data, i) => {
-                    return (
-                      <tr>
-                        <th scope="row">{i + 1}</th>
-                        <td>{data.name}</td>
-                        <td>{data.email}</td>
-                        <td>{data.contactNumber}</td>
-                        <td>{data.address}</td>
-
-                        <td>
-                          <button className="btn btn-danger btn-sm" disabled>
-                            <i class="fas fa-trash-alt" />
-                          </button>
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
+                          <td>
+                            <button className="btn btn-danger btn-sm" disabled>
+                              <i className="fas fa-trash-alt" />
+                            </button>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </>
+            )}
           </div>
         </div>
       </div>

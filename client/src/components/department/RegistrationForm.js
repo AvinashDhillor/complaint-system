@@ -215,7 +215,7 @@ export class RegistrationForm extends Component {
                         disabled
                       >
                         <span
-                          class="spinner-grow spinner-grow-sm mr-1"
+                          className="spinner-grow spinner-grow-sm mr-1"
                           role="status"
                           aria-hidden="true"
                         />

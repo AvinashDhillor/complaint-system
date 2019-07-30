@@ -97,7 +97,7 @@ export class AdminRegister extends Component {
             <div className="col-6 my-4">
               <div className="card border-info mb-3">
                 <div className="card-header bg-info text-white">
-                  <i class="fas fa-user-shield mr-2" />
+                  <i className="fas fa-user-shield mr-2" />
                   Create new admin
                 </div>
                 <div className="card-body">
@@ -183,7 +183,7 @@ export class AdminRegister extends Component {
                         disabled
                       >
                         <span
-                          class="spinner-grow spinner-grow-sm mr-1"
+                          className="spinner-grow spinner-grow-sm mr-1"
                           role="status"
                           aria-hidden="true"
                         />

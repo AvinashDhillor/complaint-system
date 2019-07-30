@@ -1,6 +1,4 @@
 import {
-  CREATE_C_USER,
-  CREATE_COMPLAINT,
   LOGOUT,
   LOGIN,
   GET_PROFILE,

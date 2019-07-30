@@ -20,11 +20,11 @@ const Header = props => {
                   type="button"
                   data-toggle="dropdown"
                 >
-                  <i class="fas fa-cog" />
+                  <i className="fas fa-cog" />
                 </button>
                 <div className="dropdown-menu">
                   <Link to="/change/password" className="dropdown-item">
-                    <i class="fas fa-key mr-2" />
+                    <i className="fas fa-key mr-2" />
                     Change Password
                   </Link>
                 </div>

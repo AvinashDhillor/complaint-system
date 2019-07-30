@@ -1,12 +1,9 @@
 const app = require('express').Router();
 const _ = require('lodash');
-
 const User = require('../db/models/ClientUser');
 const Complaint = require('../db/models/Complaint');
 const Department = require('../db/models/Department');
-
 const { authenticate } = require('../middleware/client/clientUserAuth.js');
-
 const signupValidation = require('../validations/signupValidation');
 
 app.post('/signup', authenticate, (req, res) => {

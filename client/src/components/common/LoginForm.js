@@ -82,7 +82,7 @@ class LoginForm extends Component {
                   placeholder="Password"
                   onChange={this.onChangePassword}
                 />
-                <Link to="/forget/password" class="text-info my-1">
+                <Link to="/forget/password" className="text-info my-1">
                   Forget password?
                 </Link>
               </div>

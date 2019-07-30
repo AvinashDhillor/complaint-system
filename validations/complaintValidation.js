@@ -1,6 +1,4 @@
 const _ = require('lodash');
-const check = require('validator');
-
 const complaintValidation = data => {
   let { title, text } = data;
   let message = '';

@@ -7,7 +7,7 @@ import ClientRegister from '../../components/client/RegistrationForm';
 import DepartmentRegister from '../../components/department/RegistrationForm';
 import Header from '../../components/common/Header';
 import NotFound from '../../components/common/NotFound';
-import Footer from '../../components/common/Footer';
+// import Footer from '../../components/common/Footer';
 import CreateComplaint from '../../components/client/CreateComplaint';
 import CPending from '../../components/client/Pending';
 import CResolved from '../../components/client/Resolved';

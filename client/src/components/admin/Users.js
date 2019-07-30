@@ -27,57 +27,67 @@ class Users extends Component {
         <div className="d-flex justify-content-center">
           <div className="col-11 mt-4">
             <h3 className="text-left text-black-50 display-4">Users Request</h3>
-
-            <table class="table table-striped mt-4">
-              <thead className="thead-dark">
-                <tr>
-                  <th scope="col">S.No.</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Phone No.</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Approve</th>
-                  <th scope="col">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.props.isLoading && <BlinkSpinner />}
-                {!this.props.isLoading &&
-                  this.props.uc.map((data, i) => {
-                    return (
-                      <tr>
-                        <th scope="row">{i + 1}</th>
-                        <td>{data.name}</td>
-                        <td>{data.email}</td>
-                        <td>{data.contactNumber}</td>
-                        <td>{data.address}</td>
-                        <td>
-                          <form onSubmit={this.handleSubmit1}>
-                            <input type="hidden" value={data._id} name="_id" />
-                            <button
-                              type="submit"
-                              className="btn btn-success btn-sm"
-                            >
-                              <i class="fas fa-user-check" />
-                            </button>
-                          </form>
-                        </td>
-                        <td>
-                          <form onSubmit={this.handleSubmit2}>
-                            <input type="hidden" value={data._id} name="_id" />
-                            <button
-                              type="submit"
-                              className="btn btn-danger btn-sm"
-                            >
-                              <i class="fas fa-trash-alt" />
-                            </button>
-                          </form>
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
+            {this.props.isLoading && <BlinkSpinner />}
+            {!this.props.isLoading && (
+              <>
+                <table className="table table-striped mt-4">
+                  <thead className="thead-dark">
+                    <tr>
+                      <th scope="col">S.No.</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Phone No.</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Approve</th>
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.props.uc.map((data, i) => {
+                      return (
+                        <tr key={i}>
+                          <th scope="row">{i + 1}</th>
+                          <td>{data.name}</td>
+                          <td>{data.email}</td>
+                          <td>{data.contactNumber}</td>
+                          <td>{data.address}</td>
+                          <td>
+                            <form onSubmit={this.handleSubmit1}>
+                              <input
+                                type="hidden"
+                                value={data._id}
+                                name="_id"
+                              />
+                              <button
+                                type="submit"
+                                className="btn btn-success btn-sm"
+                              >
+                                <i className="fas fa-user-check" />
+                              </button>
+                            </form>
+                          </td>
+                          <td>
+                            <form onSubmit={this.handleSubmit2}>
+                              <input
+                                type="hidden"
+                                value={data._id}
+                                name="_id"
+                              />
+                              <button
+                                type="submit"
+                                className="btn btn-danger btn-sm"
+                              >
+                                <i className="fas fa-trash-alt" />
+                              </button>
+                            </form>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </>
+            )}
           </div>
         </div>
         <div className="d-flex justify-content-center">
@@ -86,44 +96,52 @@ class Users extends Component {
               Approved Users
             </h3>
 
-            <table class="table table-striped mt-4">
-              <thead className="thead-dark">
-                <tr>
-                  <th scope="col">S.No.</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Email</th>
-                  <th scope="col">Phone No.</th>
-                  <th scope="col">Address</th>
-                  <th scope="col">Delete</th>
-                </tr>
-              </thead>
-              <tbody>
-                {this.props.isLoading && <BlinkSpinner />}
-                {!this.props.isLoading &&
-                  this.props.vc.map((data, i) => {
-                    return (
-                      <tr>
-                        <th scope="row">{i + 1}</th>
-                        <td>{data.name}</td>
-                        <td>{data.email}</td>
-                        <td>{data.contactNumber}</td>
-                        <td>{data.address}</td>
-                        <td>
-                          <form onSubmit={this.handleSubmit2}>
-                            <input type="hidden" value={data._id} name="_id" />
-                            <button
-                              type="submit"
-                              className="btn btn-danger btn-sm"
-                            >
-                              <i class="fas fa-trash-alt" />
-                            </button>
-                          </form>
-                        </td>
-                      </tr>
-                    );
-                  })}
-              </tbody>
-            </table>
+            {this.props.isLoading && <BlinkSpinner />}
+
+            {!this.props.isLoading && (
+              <>
+                <table className="table table-striped mt-4">
+                  <thead className="thead-dark">
+                    <tr>
+                      <th scope="col">S.No.</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Email</th>
+                      <th scope="col">Phone No.</th>
+                      <th scope="col">Address</th>
+                      <th scope="col">Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {this.props.vc.map((data, i) => {
+                      return (
+                        <tr key={i}>
+                          <th scope="row">{i + 1}</th>
+                          <td>{data.name}</td>
+                          <td>{data.email}</td>
+                          <td>{data.contactNumber}</td>
+                          <td>{data.address}</td>
+                          <td>
+                            <form onSubmit={this.handleSubmit2}>
+                              <input
+                                type="hidden"
+                                value={data._id}
+                                name="_id"
+                              />
+                              <button
+                                type="submit"
+                                className="btn btn-danger btn-sm"
+                              >
+                                <i className="fas fa-trash-alt" />
+                              </button>
+                            </form>
+                          </td>
+                        </tr>
+                      );
+                    })}
+                  </tbody>
+                </table>
+              </>
+            )}
           </div>
         </div>
       </div>
