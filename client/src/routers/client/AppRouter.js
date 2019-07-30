@@ -23,6 +23,10 @@ import Users from '../../components/admin/Users';
 import ShowAdmins from '../../components/admin/ShowAdmins';
 import AdminRegister from '../../components/admin/AdminRegister';
 import Complaints from '../../components/admin/Complaints';
+import ChangePassword from '../../components/common/ChangePassword';
+import ForgetPassword from '../../components/common/ForgetPassword';
+import Verify from '../../components/common/Verify';
+import Reset from '../../components/common/Reset';
 
 const AppRouter = () => {
   return (
@@ -31,6 +35,26 @@ const AppRouter = () => {
         <Header />
         <Switch>
           <PublicRouter exact={true} path="/" component={DashBoard} />
+          <PrivateRouter
+            exact={true}
+            path="/change/password"
+            component={ChangePassword}
+          />
+          <PublicRouter
+            exact={true}
+            path="/forget/password"
+            component={ForgetPassword}
+          />
+          <PublicRouter
+            exact={true}
+            path="/verify/token/:token"
+            component={Verify}
+          />
+          <PublicRouter
+            exact={true}
+            path="/reset/token/:token"
+            component={Reset}
+          />
 
           {/*Admin */}
           <PrivateRouter

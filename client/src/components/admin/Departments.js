@@ -106,6 +106,7 @@ class Departments extends Component {
                           <button
                             type="submit"
                             className="btn btn-danger btn-sm"
+                            disabled
                           >
                             <i class="fas fa-trash-alt" />
                           </button>

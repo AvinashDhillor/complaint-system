@@ -82,7 +82,11 @@ class LoginForm extends Component {
                   placeholder="Password"
                   onChange={this.onChangePassword}
                 />
+                <Link to="/forget/password" class="text-info my-1">
+                  Forget password?
+                </Link>
               </div>
+
               <div className="btn-group">
                 <button
                   className="btn text-info"
@@ -90,7 +94,7 @@ class LoginForm extends Component {
                   data-toggle="dropdown"
                 >
                   <i className="fas fa-user-plus mr-2" />
-                  Create Account
+                  Create New Account
                 </button>
                 <div className="dropdown-menu">
                   <Link to="/c/signup" className="dropdown-item">

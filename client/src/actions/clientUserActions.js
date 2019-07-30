@@ -139,19 +139,103 @@ export const userRegister = (data, history) => dispatch => {
     });
 };
 
+export const changePassword = data => dispatch => {
+  dispatch(setLoading(true));
+  axios
+    .post('/c/password/change', data)
+    .then(res => {
+      let { msg } = res.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
+      setTimeout(() => {
+        dispatch(clientLogout());
+      }, 3000);
+    })
+    .catch(err => {
+      let { msg } = err.response.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
+      console.log(err);
+    });
+};
+
+export const forgetPassword = (data, history) => dispatch => {
+  dispatch(setLoading(true));
+  axios
+    .post('/c/forget/password', data)
+    .then(res => {
+      let { msg } = res.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
+      setTimeout(() => {
+        history.push('/');
+      }, 3000);
+    })
+    .catch(err => {
+      let { msg } = err.response.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
+      console.log(err);
+    });
+};
+
+export const resetPassword = (data, history) => dispatch => {
+  dispatch(setLoading(true));
+  console.log(data);
+
+  axios
+    .post(`/c/reset/password/${data.token}`, data)
+    .then(res => {
+      let { msg } = res.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
+      setTimeout(() => {
+        history.push('/');
+      }, 3000);
+    })
+    .catch(err => {
+      let { msg } = err.response.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
+      console.log(err);
+    });
+};
+
+export const verifyEmail = (token, history) => dispatch => {
+  dispatch(setLoading(true));
+  axios
+    .get(`/c/verify/${token}`)
+    .then(res => {
+      let { msg } = res.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
+      setTimeout(() => {
+        history.push('/');
+      }, 3000);
+    })
+    .catch(err => {
+      let { msg } = err.response.data;
+      dispatch(setMessage(msg));
+      dispatch(setLoading());
+      console.log(err);
+    });
+};
+
 export const clientLogout = () => dispatch => {
-  localStorage.removeItem('jwtToken');
-  let data = {
-    isAuth: false,
-    user: { role: '' }
-  };
-  dispatch({
-    type: LOGOUT,
-    payload: data
-  });
   axios
     .delete('/c/users/me/token')
-    .then(() => {})
+    .then(() => {
+      localStorage.removeItem('jwtToken');
+      localStorage.removeItem('user');
+      let data = {
+        isAuth: false,
+        user: { role: '' }
+      };
+      dispatch({
+        type: LOGOUT,
+        payload: data
+      });
+    })
     .catch(err => {
       console.log(err);
     });

@@ -40,7 +40,7 @@ class ShowAdmins extends Component {
                         <td>{data.address}</td>
 
                         <td>
-                          <button className="btn btn-danger btn-sm">
+                          <button className="btn btn-danger btn-sm" disabled>
                             <i class="fas fa-trash-alt" />
                           </button>
                         </td>

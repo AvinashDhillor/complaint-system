@@ -108,22 +108,18 @@ UserSchema.pre('save', function(next) {
 });
 
 // generating token after signup
+// access = verify || auth || forget
 UserSchema.methods.generateAuthToken = function(access) {
   let user = this;
-  let expiresIn = {};
-  if (access == 'verify' || access == 'reset') {
-    expiresIn = { expiresIn: '30m' };
-  }
+
   let token = jwt
     .sign(
       {
         _id: user._id.toHexString(),
         access: access,
-        email: user.email,
-        isCompany: true
+        email: user.email
       },
-      process.env.SECRET_KEY,
-      { expiresIn: 3600 }
+      process.env.SECRET_KEY
     )
     .toString();
 

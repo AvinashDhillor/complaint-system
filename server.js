@@ -1,7 +1,7 @@
 const dotenv = require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
-
+const sendMail = require('./middleware/mail');
 //@ User defined
 const mongoose = require('./db/connect');
 
@@ -25,6 +25,8 @@ app.use('/resolved', resolved);
 app.use('/admin', admin);
 
 const PORT = process.env.PORT || 5000;
+
+// sendMail('avinashdhillor24@gmail.com', 'nothing', 'nothing');
 
 app.listen(PORT, err => {
   if (err) {

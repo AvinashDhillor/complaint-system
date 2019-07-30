@@ -14,9 +14,21 @@ const Header = props => {
           <>
             <span>
               <span className="text-white mr-2">Hi, {props.user.name}</span>
-              <button className="btn btn-outline-light">
-                <i class="fas fa-cog" />
-              </button>
+              <div className="btn-group dropleft">
+                <button
+                  className="btn btn-outline-light"
+                  type="button"
+                  data-toggle="dropdown"
+                >
+                  <i class="fas fa-cog" />
+                </button>
+                <div className="dropdown-menu">
+                  <Link to="/change/password" className="dropdown-item">
+                    <i class="fas fa-key mr-2" />
+                    Change Password
+                  </Link>
+                </div>
+              </div>
             </span>
           </>
         ) : (
