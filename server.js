@@ -15,6 +15,13 @@ const admin = require('./routes/admin');
 
 const app = express();
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
+
 //@middlewares
 app.use(bodyParser.json());
 app.use('/c', clientUser);
