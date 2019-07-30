@@ -26,10 +26,28 @@ export class RegistrationForm extends Component {
     };
   }
   componentWillMount() {
+    if (this.props.isAuth) {
+      if (this.props.role === 'department')
+        this.props.history.push('/d/panel/allresolved');
+      else if (this.props.role === 'client') {
+        this.props.history.push('/c/panel/complaint/create');
+      } else if (this.props.role === 'admin') {
+        this.props.history.push('/a/panel/departments');
+      }
+    }
     this.props.getDepartments();
   }
 
   componentWillReceiveProps(nextProps) {
+    if (nextProps.isAuth) {
+      if (nextProps.role === 'department')
+        this.props.history.push('/d/panel/allresolved');
+      else if (this.props.role === 'client') {
+        this.props.history.push('/c/panel/complaint/create');
+      } else if (this.props.role === 'admin') {
+        this.props.history.push('/a/panel/departments');
+      }
+    }
     this.setState({
       isLoading: nextProps.isLoading,
       departments: nextProps.departments
@@ -242,6 +260,8 @@ export class RegistrationForm extends Component {
 }
 
 const mapStateToProps = state => ({
+  isAuth: state.client.isAuth,
+  role: state.client.user.role,
   isLoading: state.loadingStatus.loading,
   departments: state.departments,
   isMessage: !state.msg.isEmpty,
