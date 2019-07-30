@@ -165,8 +165,6 @@ app.get('/v/c/users', authenticate, (req, res) => {
 
 app.post('/verify/user', authenticate, (req, res) => {
   if (req.user.role === 'admin') {
-    console.log(req.body._id);
-
     User.findOneAndUpdate(
       { _id: req.body._id },
       { $set: { isVerified: true } },
