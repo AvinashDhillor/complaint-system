@@ -83,7 +83,8 @@ app.get('/u/d/users', authenticate, (req, res) => {
   if (req.user.role === 'admin') {
     let data = {
       role: 'department',
-      isVerified: false
+      isVerified: false,
+      isActivated: true
     };
 
     User.find(data)
@@ -134,7 +135,8 @@ app.get('/u/c/users', authenticate, (req, res) => {
   if (req.user.role === 'admin') {
     let data = {
       role: 'client',
-      isVerified: false
+      isVerified: false,
+      isActivated: true
     };
 
     User.find(data)

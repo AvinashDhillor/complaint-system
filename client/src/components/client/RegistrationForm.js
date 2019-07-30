@@ -155,7 +155,7 @@ export class RegistrationForm extends Component {
                         <input
                           onChange={this.onNumberChange}
                           name="number"
-                          type="text"
+                          type="tel"
                           className="form-control"
                           id="number"
                           placeholder=""

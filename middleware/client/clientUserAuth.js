@@ -1,8 +1,8 @@
-const ComapnyUser = require('../../db/models/ClientUser');
+const User = require('../../db/models/ClientUser');
 
 const authenticate = (req, res, next) => {
   const token = req.header('cu-auth');
-  ComapnyUser.findByToken(token)
+  User.findByToken(token)
     .then(user => {
       if (!user) {
         return Promise.reject();

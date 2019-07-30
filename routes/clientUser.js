@@ -57,6 +57,25 @@ app.get('/users/me', authenticate, (req, res) => {
   res.send(req.user);
 });
 
+app.post('/password/change', authenticate, (req, res) => {
+  let { _id } = req.user._id;
+  let newPassword = req.body.newPassword;
+  User.findOne({ _id })
+    .then(user => {
+      user.password = newPassword;
+      user.tokens = [];
+      user.save().then(result => {
+        return res.send({ msg: `Password is successfully changed 👷‍` });
+      });
+    })
+    .catch(err => {
+      res
+        .status(400)
+        .send({ msg: `Error!!! 😱 Sorry, We couldn't change your password` });
+      console.log(err);
+    });
+});
+
 app.post('/users/login', (req, res) => {
   var body = _.pick(req.body, ['email', 'password']);
   let { isValid, message } = loginValidation(body);
@@ -68,14 +87,14 @@ app.post('/users/login', (req, res) => {
   User.findByCredentials(body.email, body.password)
     .then(user => {
       if (!user.isActivated) {
-        return res
-          .status(400)
-          .send({ msg: `Please verify your email account first!🙏` });
+        return res.status(400).send({
+          msg: `Hi ${user.name}, Please verify your email account first!🙏`
+        });
       }
       if (!user.isVerified) {
-        return res
-          .status(400)
-          .send({ msg: `Admin didn't approve your account yet.🥱` });
+        return res.status(400).send({
+          msg: `Sorry ${user.name}, Admin didn't approve your account yet.🥱`
+        });
       }
       return user.generateAuthToken('auth').then(token => {
         res.header('cu-auth', token).send({ user, token });
