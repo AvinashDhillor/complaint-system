@@ -16,10 +16,8 @@ const admin = require('./routes/admin');
 
 const app = express();
 
-const publicPath = path.join(__dirname, 'client', 'build');
-
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(publicPath));
+  app.use(express.static('client/build'));
   app.get('*', (req, res, next) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
