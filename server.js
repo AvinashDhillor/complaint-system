@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const sendMail = require('./middleware/mail');
 //@ User defined
 const mongoose = require('./db/connect');
+const path = require('path');
 
 //@ Routes
 const clientUser = require('./routes/clientUser');
@@ -15,8 +16,10 @@ const admin = require('./routes/admin');
 
 const app = express();
 
+const publicPath = path.join(__dirname, 'client', 'build');
+
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+  app.use(express.static(publicPath));
   app.get('*', (req, res, next) => {
     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
