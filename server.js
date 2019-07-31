@@ -2,9 +2,9 @@ const dotenv = require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const sendMail = require('./middleware/mail');
+const path = require('path');
 //@ User defined
 const mongoose = require('./db/connect');
-const path = require('path');
 
 //@ Routes
 const clientUser = require('./routes/clientUser');
@@ -16,13 +16,6 @@ const admin = require('./routes/admin');
 
 const app = express();
 
-if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
-  app.get('*', (req, res, next) => {
-    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
-  });
-}
-
 //@middlewares
 app.use(bodyParser.json());
 app.use('/c', clientUser);
@@ -33,6 +26,13 @@ app.use('/resolved', resolved);
 app.use('/admin', admin);
 
 const PORT = process.env.PORT || 5000;
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('client/build'));
+  app.get('*', (req, res, next) => {
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+  });
+}
 
 app.listen(PORT, err => {
   if (err) {
