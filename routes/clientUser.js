@@ -44,7 +44,7 @@ app.post('/users/signup', (req, res) => {
             sendMail(
               req.body.email,
               'Please verify your email account 🕵️‍',
-              `http://localhost:3000/verify/token/${token}`
+              `http://complaint-box-9466.herokuapp.com/verify/token/${token}`
             );
             return res.send({
               msg:
@@ -100,7 +100,7 @@ app.post('/forget/password', (req, res) => {
       sendMail(
         req.body.email,
         'Reset Password ✏',
-        `http://localhost:3000/reset/token/${token}`
+        `http://complaint-box-9466.herokuapp.com/reset/token/${token}`
       );
       return res.send({
         msg: 'Reset password link is on the way 🚐. Please check you mail 📩'
