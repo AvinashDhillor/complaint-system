@@ -32,6 +32,8 @@ export const addDepartment = data => dispatch => {
       dispatch(setMessage(msg));
     })
     .catch(err => {
+      let { msg } = err.response.data;
+      dispatch(setMessage(msg));
       console.log(err);
     });
 };

@@ -6,6 +6,11 @@ const { authenticate } = require('../middleware/client/clientUserAuth');
 
 app.post('/new', authenticate, (req, res) => {
   if (req.user.role === 'admin') {
+    if (_.isEmpty(req.body.name)) {
+      return res
+        .status(400)
+        .send({ msg: 'Please provide a valid department name! 😬' });
+    }
     const data = _.pick(req.body, ['name']);
     const department = new Department(data);
     department
