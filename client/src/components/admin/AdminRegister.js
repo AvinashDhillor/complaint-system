@@ -27,8 +27,6 @@ export class AdminRegister extends Component {
         this.props.history.push('/d/panel/allresolved');
       else if (this.props.role === 'client') {
         this.props.history.push('/c/panel/complaint/create');
-      } else if (this.props.role === 'admin') {
-        this.props.history.push('/a/panel/departments');
       }
     }
   }
@@ -39,8 +37,6 @@ export class AdminRegister extends Component {
         this.props.history.push('/d/panel/allresolved');
       else if (this.props.role === 'client') {
         this.props.history.push('/c/panel/complaint/create');
-      } else if (this.props.role === 'admin') {
-        this.props.history.push('/a/panel/departments');
       }
     }
 
